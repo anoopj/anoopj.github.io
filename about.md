@@ -1,11 +1,14 @@
 ---
-layout: page
 title: About
-permalink: /about/
+author: admin
+layout: page
 ---
+I&#8217;m a software engineer living in the silicon valley. My interests are mainly distributed systems and databases. You can get in touch with me at:
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+*   LinkedIn: <a href="https://www.linkedin.com/in/anoopjohnson" target="_blank">My LinkedIn profile</a>
+*   Twitter: <a class="twitter-follow-button" style="line-height: 1.714285714; font-size: 1rem;" href="https://twitter.com/anoopjohnson" data-show-count="false">Follow me on Twitter</a>
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+Or you can use the below form:
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+<div style="clear:both;">
+</div>
