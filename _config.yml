@@ -2,7 +2,7 @@
 url: http://www.anoopjohnson.com
 name: Mostly Harmless - Anoop Johnson's Blog
 title: 'Mostly Harmless - Anoop Johnson&#039;s Blog'
-email: anoop@anoopjohnson.com
+email: blog@anoopjohnson.com
 description: > # this means to ignore newlines until "baseurl:"
   Anoop Johnson's personal blog
 baseurl: "" # the subpath of your site, e.g. /blog/
