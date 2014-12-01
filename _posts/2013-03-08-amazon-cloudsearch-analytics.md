@@ -20,19 +20,19 @@ The Analytics features provides CloudSearch customers insight into the search ac
 **Search Trends**: The time-series metrics of the number of searches and number of searches which yielded no results.
 
 <p style="text-align: center;">
-  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Search_Metrics.png" target="_blank"><img class="aligncenter  wp-image-118" alt="Search_Metrics" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Search_Metrics.png" width="1092" height="646" /></a>
+  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Search_Metrics.png" target="_blank"><img class="aligncenter  wp-image-118" alt="Search_Metrics" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Search_Metrics.png" /></a>
 </p>
 
 **Top Searches:**  Most frequent queries, most frequent queries which produced no search results.
 
 <p style="text-align: center;">
-  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Searches.png"><img class="aligncenter  wp-image-143" alt="Top_Searches" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Searches.png" width="1094" height="651" /></a>
+  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Searches.png"><img class="aligncenter  wp-image-143" alt="Top_Searches" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Searches.png" /></a>
 </p>
 
 **Top Documents:** The documents most frequently surfaced in search results.
 
 <p style="text-align: center;">
-  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Documents.png"><img class="aligncenter  wp-image-145" alt="Top_Documents" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Documents.png" width="1085" height="653" /></a>
+  <a href="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Documents.png"><img class="aligncenter  wp-image-145" alt="Top_Documents" src="http://www.anoopjohnson.com/wp-content/uploads/2013/03/Top_Documents.png" /></a>
 </p>
 
  So what are the practical use cases for these metrics? Here are some:
