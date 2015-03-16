@@ -24,11 +24,11 @@ static HTML. The only remaining challenge is comments, but that's what
 I finally settled on Github Pages (instead of using S3) because it is
 Jekyll-based and well-integrated with Git. 
 
-## Why do I like Jekyll?
+## Why Jekyll?
 
 * Low maintenance and more secure. You don't need to run a web server and a
 database server. My blog is very low traffic and the cost of running a
-server is not justified.
+server is not justified. I can host the website using S3 or Github Pages.
 
 * Better suited for my work styles. I can use a plain text editor to write
 the blog posts, just do a `git commit` and `git push` and the changes are live on
@@ -38,7 +38,7 @@ my blog in seconds.
 
 * Free. 
 
-## Steps for Migrating from Wordpress to Jekyll / Github Pages
+## Steps for Migrating from Wordpress to Jekyll/Github Pages
 
 This is what I had to do:
 
@@ -46,10 +46,10 @@ This is what I had to do:
 * Install their nice Wordpress plugin that lets you import the existing blog
 comments into Disqus.
 * Install the
-[Disqus Wordpress Importer](https://github.com/benbalter/wordpress-to-jekyll-exporter)
+[Wordpress-to-Jeklyll Exporter](https://github.com/benbalter/wordpress-to-jekyll-exporter)
 WordPress plugin that converts all posts, pages, taxonomies, metadata, and settings to
 Markdown.
-* Optional: Install Jekyll on your personal machine. This will allow you to
+* Optional: Install Jekyll on your desktop/laptop. This will allow you to
 preview the blog locally before pushing the posts to Github.
 * Create a repository for Github pages.
 * Add the markdown files into the Git repository.
