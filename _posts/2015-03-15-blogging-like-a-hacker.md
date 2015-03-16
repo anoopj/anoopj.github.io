@@ -10,7 +10,7 @@ categories:
 ---
 
 For the past 8 years, I was using Wordpress to power this blog. I recently
-migrated this blog to Github pages.
+migrated this blog to [Github Pages](https://pages.github.com/).
 
 While Wordpress is a great blogging platform, it needs some effort to keep
 it updated and secure. Then I ran into a
@@ -21,13 +21,14 @@ Amazon S3 to serve his blog. With Jekyll, you write the blog posts in
 static HTML. The only remaining challenge is comments, but that's what
 [Disqus](http://www.disqus.com) is for.
 
-I finally settled on `Github Pages` (instead of using S3) because it is
+I finally settled on Github Pages (instead of using S3) because it is
 Jekyll-based and well-integrated with Git. 
 
 ## Why do I like Jekyll?
 
 * Low maintenance and more secure. You don't need to run a web server and a
-database server.
+database server. My blog is very low traffic and the cost of running a
+server is not justified.
 
 * Better suited for my work styles. I can use a plain text editor to write
 the blog posts, just do a `git commit` and `git push` and the changes are live on
@@ -53,7 +54,7 @@ preview the blog locally before pushing the posts to Github.
 * Create a repository for Github pages.
 * Add the markdown files into the Git repository.
 * Tweak the configuration to use Disqus for commenting.
-* Create a CNAME file. [Example](https://github.com/anoopj/anoopj.github.io/blob/master/CNAME).
+* Create a CNAME file. [Example file](https://github.com/anoopj/anoopj.github.io/blob/master/CNAME).
 * Commit, push to Github.
 * Make changes to your website's DNS such that your domain name is a CNAME
   pointing to Github page. The exact steps for this depends on your DNS
