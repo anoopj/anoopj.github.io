@@ -16,23 +16,22 @@ While Wordpress is a great blogging platform, it needs some effort to keep
 it updated and secure. Then I ran into a
 [blog post by Werner Vogels](http://www.allthingsdistributed.com/2011/08/Jekyll-amazon-s3.html)
 where he mentioned that he was using Jekyll and Amazon S3 to serve his
-blog. With Jekyll, you write the blog posts in
+blog. With `Jekyll`, you write the blog posts in
 [Markdown](http://en.wikipedia.org/wiki/Markdown) that gets converted into
 static HTML. The only remaining challenge is comments, but that's what
 [Disqus](http://www.disqus.com) is for.
 
-I finally settled on Github pages (instead of using S3) because it is
-Jekyll based and well-integrated with Git. I get full version control, can
-post from multiple computers and it is free.
+I finally settled on `Github Pages` (instead of using S3) because it is
+Jekyll-based and well-integrated with Git. 
 
 ## Why do I like Jekyll?
 
-* Less maintenance and more secure. You don't need to run a web server and a
+* Low maintenance and more secure. You don't need to run a web server and a
 database server.
 
 * Better suited for my work styles. I can use a plain text editor to write
-the blog posts, just do a git commit and push and the changes are live on
-my blog.
+the blog posts, just do a `git commit` and `git push` and the changes are live on
+my blog in seconds.
 
 * Version controlled. Can use branches and work between machines.
 
