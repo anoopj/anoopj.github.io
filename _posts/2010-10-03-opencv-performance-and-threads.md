@@ -17,7 +17,8 @@ categories:
 
 If you use the <a href="http://en.wikipedia.org/wiki/OpenCV" target="_blank">OpenCV</a> library, be aware that it spawns threads for image processing. I found this while investigating a performance issue in a web application I was working on. It turns out the default number of threads is equal to the number of CPU cores. So in my dual quad-core box, it was spawning 8 threads per web server process, resulting in poor throughput while serving concurrent requests. This default behavior of OpenCV is probably targeted towards desktop applications where it makes sense to use all the available CPU cores. The performance problem arose from the fact that even under 5 rps, there were 40 threads, all competing for the CPU, so the cost of context switching was significant. In any case, creating threads on the fly per request is not a good idea for a server-side application and it&#8217;s not going to scale for high-traffic systems.
 
-Explicitly setting the number of threads as 1 improved the throughput and latency of my application several times. Not bad for a one-line code change. Have a look at *cv::setNumThreads()* if you are using the C++ library and *cvSetNumThreads()* if you are using the Python wrapper.
+I could not find a way for the library to use a thread pool, but doing a
+synchronous processing was enough for our usecase. Explicitly setting the number of threads as 1 improved the throughput and latency of my application several times. Not bad for a one-line code change. Have a look at *cv::setNumThreads()* if you are using the C++ library and *cvSetNumThreads()* if you are using the Python wrapper.
 
 <div style="clear:both;">
 </div>
