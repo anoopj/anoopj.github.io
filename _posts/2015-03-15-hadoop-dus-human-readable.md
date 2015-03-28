@@ -4,7 +4,7 @@ author: anoopj
 layout: post
 permalink: /2015/03/hadoop-dus-human-readable/
 categories:
-  - Hadoop  
+  - Hadoop
 ---
 
 The `du` command in Hadoop 0.20-x version prints out the file sizes in
@@ -21,6 +21,6 @@ Hadoop 2.x. See
 For those of us who're still on Hadoop 0.20x or 1.0, this is workaround
 using shell and AWK:
 
-```
-hello
-```
+$ `DIR='/*'`
+
+$ `hadoop -dus "$DIR" | cut -d' ' -f1,2-10 |  awk '{ used = $2 ; du[1024 ** 4] = "TB"; du[1024 ** 3] = "GB"; du[1024 ** 2] = "MB"; du[1024] = "KB"; for (unit = 1024 ** 4; unit >= 1024; unit /= 1024){ if (used >= unit) { printf "%.2f %s \t %s\n", used / unit, du[unit], $1; break } }}'`
