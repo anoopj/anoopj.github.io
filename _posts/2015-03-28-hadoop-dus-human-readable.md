@@ -8,8 +8,9 @@ categories:
 ---
 
 The `du` command in Hadoop 0.20-x version prints out the file sizes in
-bytes and do not have an option for a human-readable output like the Unix
-`du` command.
+bytes and do not have an option for a "human-readable" output like the Unix
+`du` command (i.e. file sizes in units like Kilobyte, Megabyte, Gigabyte,
+Terabyte etc).
 
 I looked around and this feature supposedly went in a long time ago as part
 of [HADOOP-4861](https://issues.apache.org/jira/browse/HADOOP-4861), but it
