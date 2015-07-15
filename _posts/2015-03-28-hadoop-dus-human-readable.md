@@ -24,4 +24,4 @@ using shell and AWK:
 
 $ `DIR='/*'`
 
-$ `hadoop -dus "$DIR" | cut -d' ' -f1,2-10 |  awk '{ used = $2 ; du[1024 ** 4] = "TB"; du[1024 ** 3] = "GB"; du[1024 ** 2] = "MB"; du[1024] = "KB"; for (unit = 1024 ** 4; unit >= 1024; unit /= 1024){ if (used >= unit) { printf "%.2f %s \t %s\n", used / unit, du[unit], $1; break } }}'`
+$ `hadoop dfs -dus "$DIR" | cut -d' ' -f1,2-10 |  awk '{ used = $2 ; du[1024 ** 4] = "TB"; du[1024 ** 3] = "GB"; du[1024 ** 2] = "MB"; du[1024] = "KB"; for (unit = 1024 ** 4; unit >= 1024; unit /= 1024){ if (used >= unit) { printf "%.2f %s \t %s\n", used / unit, du[unit], $1; break } }}'`
