@@ -47,7 +47,7 @@ You would want the right tools to navigate around large codebases so that
 you can go to the definition of a class or method with one click or
 keystroke. If you're using Java or Scala, consider using an IDE. I'm an
 Emacs user myself, but I stick to an IDE while programming in Java. Other
-relevant tools include cscope, etags (if you're using Emacs).
+relevant tools include *cscope*, *ctags*, *etags* (if you're using Emacs).
 
 ### Look at the tests
 
