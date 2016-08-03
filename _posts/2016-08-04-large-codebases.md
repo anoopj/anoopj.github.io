@@ -30,7 +30,7 @@ Reading and making sense of large code-bases is an art. A few tips:
 
 * It is not realistic to read and understand a large part of the
 codebase. Often times, you may want to focus on the most important parts of
-the code that gives you the best RoI of your time.
+the code that gives you the best ROI of your time.
 
 * Figure out the important abstractions and try to create a mental model of
 them.
@@ -52,10 +52,10 @@ components are supposed to work.
 
 ## Use the Debugger
 
-Set a few breakpoints and use a debugger to step through the code. 
+Sprinkle a few breakpoints and use a debugger to step through the code. 
 
 ## Learn by doing
 
-Finally, the best way to learn is actually by actually working on specific
+Finally, the best way to learn is actually by working on specific
 projects. Look at the roadmap/project list and pick tasks that balance
 utility and your learning.
