@@ -13,6 +13,15 @@ One of my colleagues asked for advice on ramping up on large
 codebases. This is a complex topic where there is no one right answer, but
 I'll try to briefly summarize what I learned over the years.
 
+One thing to keep in mind is that the size footprint of the code base is
+not necessarily an indicator of the learning curve. There are some systems
+that are broad, but somewhat shallow. An example would be a large website
+where if you understand how one feature works full-stack, you will
+understand most of it. Learning them is usually not that hard.
+
+The rest of the advice is for software that is on the deep end of the
+spectrum - codebases that have high levels of abstractions.
+
 ### Understand the software from the user perspective
 
 Before you look under the hood, try to *use* the software as an end user and
