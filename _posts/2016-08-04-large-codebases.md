@@ -10,8 +10,8 @@ categories:
 ---
 
 One of my colleagues asked for advice on ramping up on large
-codebases. This is a complex topic where there is no right answer, but I'll
-try to summarize what I learned over the years.
+codebases. This is a complex topic where there is no one right answer, but
+I'll try to briefly summarize what I learned over the years.
 
 ## Understand the software from the user perspective
 
@@ -37,22 +37,27 @@ them.
 
 * Look for invariants, pre and post conditions and side effects.
 
-* Sometimes it's worth looking at the past checkins and understand how
-  developers made changes to the codebase for specific projects.
+* Sometimes it's worth looking at the past checkins and code reviews to
+  understand how developers made changes to the codebase for specific
+  projects.
 
 ## Use the right tools
 
-You would want the right tools to navigate around large codebases. If
-you're using Java or Scala, consider using an IDE. 
+You would want the right tools to navigate around large codebases so that
+you can go to the definition of a class or method with one click or
+keystroke. If you're using Java or Scala, consider using an IDE. I'm an
+Emacs user myself, but I stick to an IDE while programming in Java. Other
+relevant tools include cscope, etags (if you're using Emacs).
 
 ## Look at the tests
 
 Unit and integration tests can provide insight into how individual
-components are supposed to work.
+components are supposed to be used.
 
-## Use the Debugger
+## Use a debugger
 
-Sprinkle a few breakpoints and use a debugger to step through the code. 
+Set a few breakpoints in the codepaths you want to understand and use a
+debugger to step through the code.
 
 ## Learn by doing
 
