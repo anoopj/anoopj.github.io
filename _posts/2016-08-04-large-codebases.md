@@ -9,9 +9,11 @@ categories:
   - Blog
 ---
 
-One of my colleagues asked for advice on ramping up on large
-codebases. This is a complex topic where there is no one right answer, but
-I'll try to briefly summarize what I learned over the years.
+As software engineers, we are frequently expected to learn large code bases
+and become productive relatively quickly. One of my colleagues asked for
+advice on ramping up on large codebases. This is a complex topic where
+there is no one right answer, but I'll try to briefly summarize what I
+learned over the years.
 
 One thing to keep in mind is that the size footprint of the code base is
 not necessarily an indicator of the learning curve. There are some systems
