@@ -9,13 +9,13 @@ categories:
   - Blog
 ---
 
-As software engineers, we are frequently expected to learn large code bases
+As software engineers, we are frequently expected to learn large codebases
 and become productive relatively quickly. One of my colleagues asked for
 advice on ramping up on large codebases. This is a complex topic where
 there is no one right answer, but I'll try to briefly summarize what I
 learned over the years.
 
-One thing to keep in mind is that the size footprint of the code base is
+One thing to keep in mind is that the size footprint of the codebase is
 not necessarily an indicator of the learning curve. There are some systems
 that are broad, but somewhat shallow. An example would be a large website
 where if you understand how one feature works full-stack, you will
@@ -73,6 +73,6 @@ debugger to step through the code.
 
 ### Learn by doing
 
-Finally, the best way to learn is actually by working on specific
+Finally, the only way to learn is actually by working on specific
 projects. Look at the roadmap/project list and pick tasks that balance
 utility and your learning.
