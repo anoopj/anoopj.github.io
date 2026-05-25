@@ -1,0 +1,2749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Machines Study Guide</title>
+<style>
+  :root {
+    --bg: #f4f8ff;
+    --card: #ffffff;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #f59e0b;
+    --good: #16a34a;
+    --bad: #dc2626;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #cbd5e1;
+    --highlight: #fef3c7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    padding: 18px 24px;
+    text-align: center;
+  }
+  header h1 { margin: 0; font-size: 28px; }
+  header p { margin: 6px 0 0; opacity: 0.9; }
+  nav {
+    background: white;
+    border-bottom: 2px solid var(--border);
+    padding: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  nav button {
+    background: #e2e8f0;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  nav button:hover { background: #cbd5e1; }
+  nav button.active { background: var(--primary); color: white; }
+  main { padding: 24px; max-width: 1100px; margin: 0 auto; }
+  section { display: none; }
+  section.active { display: block; }
+  h2 {
+    color: var(--primary-dark);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 6px;
+    font-size: 26px;
+  }
+  h3 { color: var(--primary-dark); margin-top: 24px; }
+  .card {
+    background: var(--card);
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    margin-bottom: 18px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 720px) {
+    .grid2, .grid3, .grid4 { grid-template-columns: 1fr 1fr; }
+    main { padding: 14px; }
+  }
+  .machine-card {
+    background: #f1f5f9;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .machine-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+  }
+  .machine-card .pic { font-size: 56px; line-height: 1; }
+  .machine-card svg { width: 100%; height: 110px; }
+  .machine-card h4 { margin: 8px 0 4px; color: var(--primary-dark); }
+  .formula {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    margin: 12px 0;
+  }
+  .key-term {
+    background: #e0e7ff;
+    color: var(--primary-dark);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .tip {
+    background: #fef9c3;
+    border-left: 4px solid #eab308;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 12px 0;
+  }
+  .warn {
+    background: #fee2e2;
+    border-left: 4px solid var(--bad);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 12px 0;
+  }
+  .example {
+    background: #ecfdf5;
+    border-left: 4px solid var(--good);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 12px 0;
+  }
+  button.primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  button.primary:hover { background: var(--primary-dark); }
+  button.secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  input[type="number"], input[type="range"], select {
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 15px;
+  }
+  input[type="number"] { width: 100px; }
+  .calc-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+  }
+  .quiz-q {
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .quiz-option {
+    padding: 10px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: #f8fafc;
+    transition: all 0.15s;
+    font-size: 15px;
+  }
+  .quiz-option:hover { border-color: var(--primary); background: #eff6ff; }
+  .quiz-option.correct { background: #dcfce7; border-color: var(--good); }
+  .quiz-option.wrong { background: #fee2e2; border-color: var(--bad); }
+  .quiz-option.disabled { cursor: default; pointer-events: none; opacity: 0.85; }
+  .quiz-feedback {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.good { background: #dcfce7; color: #166534; }
+  .quiz-feedback.bad { background: #fee2e2; color: #991b1b; }
+  .score-bar {
+    background: #e2e8f0;
+    border-radius: 999px;
+    height: 14px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .score-fill {
+    background: linear-gradient(90deg, var(--good), #4ade80);
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  th, td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; }
+  th { background: #e0e7ff; color: var(--primary-dark); }
+  .lever-sim {
+    background: #f8fafc;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .controls-row {
+    display: flex;
+    gap: 16px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .control-block {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .balance-status {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+  .balance-status.balanced { background: #dcfce7; color: #166534; }
+  .balance-status.tilted { background: #fef3c7; color: #92400e; }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary-dark);
+    padding: 6px 0;
+  }
+  details[open] summary { margin-bottom: 8px; }
+  .small { font-size: 13px; color: var(--muted); }
+  ul.checkbox { list-style: none; padding-left: 0; }
+  ul.checkbox li::before {
+    content: "✔ ";
+    color: var(--good);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  ul.no-list { list-style: none; padding-left: 0; }
+  ul.no-list li::before {
+    content: "✗ ";
+    color: var(--bad);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  /* Picture card */
+  .pic-tile {
+    background: #fff7ed;
+    border: 3px solid #fdba74;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 280px;
+  }
+  .pic-tile .emoji { font-size: 96px; line-height: 1.1; }
+  .pic-tile .name { font-size: 18px; font-weight: 700; margin-top: 6px; color: var(--primary-dark); }
+
+  /* Drag and drop */
+  .dnd-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .dnd-wrap { grid-template-columns: 1fr; } }
+  .dnd-items, .dnd-targets {
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 100px;
+  }
+  .dnd-item {
+    background: white;
+    padding: 8px 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    margin: 6px 0;
+    cursor: grab;
+    font-weight: 600;
+    user-select: none;
+    transition: all 0.15s;
+  }
+  .dnd-item:active { cursor: grabbing; }
+  .dnd-item.dragging { opacity: 0.5; }
+  .dnd-item.placed.correct { background: #dcfce7; border-color: var(--good); }
+  .dnd-item.placed.wrong { background: #fee2e2; border-color: var(--bad); }
+  .dnd-target {
+    background: white;
+    border: 2px dashed #94a3b8;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 6px 0;
+    min-height: 44px;
+    transition: all 0.15s;
+  }
+  .dnd-target.over { background: #eff6ff; border-color: var(--primary); }
+  .dnd-target .label { font-weight: 600; color: var(--muted); font-size: 14px; }
+
+  /* FBD builder */
+  .fbd-stage {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    position: relative;
+    height: 320px;
+    margin: 10px 0;
+  }
+  .fbd-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  .fbd-buttons button {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .fbd-buttons button:hover { border-color: var(--primary); }
+
+  /* Pulley diagrams */
+  .pulley-puzzle {
+    text-align: center;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+  }
+
+  .scenario-card {
+    background: #eff6ff;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 14px;
+    margin: 8px 0;
+  }
+  .stars {
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .big-emoji { font-size: 64px; line-height: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Simple Machines Study Guide</h1>
+  <p>Learn, play, and practice for the Science Olympiad event!</p>
+</header>
+
+<nav id="nav"></nav>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section id="home" class="active">
+  <h2>Welcome!</h2>
+  <div class="card">
+    <p>Hi! This guide will help you learn everything you need for the <strong>Simple Machines</strong> event.
+    You and your partner will take a written test plus an optional lever lab.</p>
+    <h3>What you'll learn</h3>
+    <ul class="checkbox">
+      <li>The 6 simple machines and their parts</li>
+      <li>How to identify simple machines in everyday objects</li>
+      <li>Forces, free body diagrams, and net force</li>
+      <li>Newton's 3 Laws of Motion</li>
+      <li>How energy gets passed around</li>
+      <li>Mechanical Advantage: IMA, AMA, and Efficiency</li>
+    </ul>
+    <h3>What is NOT on the test</h3>
+    <ul class="no-list">
+      <li>Calculus</li>
+      <li>Quantitative air resistance</li>
+      <li>History of mechanical systems</li>
+      <li>Quantitative analysis of energy</li>
+      <li>Compound machines with more than 2 simple machines</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>How to use this guide</h3>
+    <ol>
+      <li><strong>Read</strong> each machine section (top nav buttons)</li>
+      <li><strong>Play</strong> the games: Match It, Lever Detective, FBD Builder, Pulley Counter, Newton's Laws</li>
+      <li><strong>Test yourself</strong> with the Identify Practice and Big Quiz</li>
+      <li><strong>Practice the lab</strong> on the Lever Lab page</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>The 6 Simple Machines</h3>
+    <p>Click any machine to jump to that section:</p>
+    <div class="grid3" id="machine-grid"></div>
+  </div>
+</section>
+
+<!-- ============ LEVER ============ -->
+<section id="lever">
+  <h2>Lever <span class="badge">Class 1, 2, 3</span></h2>
+
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">⚖️🪚🎣</span></div>
+    <p>A <span class="key-term">lever</span> is a stiff bar that pivots around a fixed point called the
+    <span class="key-term">fulcrum</span>. You push on one end (the <span class="key-term">effort</span>), and
+    that lifts or moves a <span class="key-term">load</span> at the other end.</p>
+
+    <h3>The three parts</h3>
+    <ul>
+      <li><strong>Fulcrum (F):</strong> the pivot point</li>
+      <li><strong>Effort (E):</strong> the force you apply</li>
+      <li><strong>Load (L):</strong> the weight you are moving</li>
+    </ul>
+
+    <h3>The three classes</h3>
+    <p>The class of a lever depends on the <em>order</em> of F, E, and L along the bar.</p>
+
+    <div class="grid3">
+      <div class="card">
+        <h4>Class 1: F in middle</h4>
+        <div style="text-align:center; font-size:48px;">⚖️</div>
+        <svg viewBox="0 0 200 110">
+          <line x1="20" y1="60" x2="180" y2="60" stroke="#1e293b" stroke-width="6"/>
+          <polygon points="95,70 105,70 100,90" fill="#7c3aed"/>
+          <text x="100" y="105" text-anchor="middle" font-size="11" font-weight="700">F</text>
+          <rect x="20" y="40" width="20" height="20" fill="#16a34a"/>
+          <text x="30" y="33" text-anchor="middle" font-size="11" font-weight="700">L</text>
+          <path d="M170 30 v25" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="170" y="22" text-anchor="middle" font-size="11" font-weight="700">E</text>
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/>
+            </marker>
+          </defs>
+        </svg>
+        <p class="small">Order: L — F — E</p>
+        <p><strong>Examples:</strong> seesaw 🛝, scissors ✂️, crowbar, pliers, hammer claw pulling a nail 🔨</p>
+      </div>
+      <div class="card">
+        <h4>Class 2: L in middle</h4>
+        <div style="text-align:center; font-size:48px;">🛒</div>
+        <svg viewBox="0 0 200 110">
+          <line x1="20" y1="60" x2="180" y2="60" stroke="#1e293b" stroke-width="6"/>
+          <polygon points="15,70 25,70 20,90" fill="#7c3aed"/>
+          <text x="20" y="105" text-anchor="middle" font-size="11" font-weight="700">F</text>
+          <rect x="90" y="40" width="20" height="20" fill="#16a34a"/>
+          <text x="100" y="33" text-anchor="middle" font-size="11" font-weight="700">L</text>
+          <path d="M170 30 v25" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="170" y="22" text-anchor="middle" font-size="11" font-weight="700">E</text>
+        </svg>
+        <p class="small">Order: F — L — E</p>
+        <p><strong>Examples:</strong> wheelbarrow, nutcracker, bottle opener 🍾, doors 🚪</p>
+      </div>
+      <div class="card">
+        <h4>Class 3: E in middle</h4>
+        <div style="text-align:center; font-size:48px;">🎣</div>
+        <svg viewBox="0 0 200 110">
+          <line x1="20" y1="60" x2="180" y2="60" stroke="#1e293b" stroke-width="6"/>
+          <polygon points="15,70 25,70 20,90" fill="#7c3aed"/>
+          <text x="20" y="105" text-anchor="middle" font-size="11" font-weight="700">F</text>
+          <rect x="160" y="40" width="20" height="20" fill="#16a34a"/>
+          <text x="170" y="33" text-anchor="middle" font-size="11" font-weight="700">L</text>
+          <path d="M100 30 v25" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="100" y="22" text-anchor="middle" font-size="11" font-weight="700">E</text>
+        </svg>
+        <p class="small">Order: F — E — L</p>
+        <p><strong>Examples:</strong> tweezers, fishing rod 🎣, baseball bat ⚾, broom 🧹, your forearm 💪</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>Memory trick: "FLE 1-2-3"</strong><br>
+      Class 1 → <strong>F</strong>ulcrum in middle<br>
+      Class 2 → <strong>L</strong>oad in middle<br>
+      Class 3 → <strong>E</strong>ffort in middle
+    </div>
+
+    <h3>Mechanical Advantage of a Lever</h3>
+    <div class="formula">IMA = effort arm ÷ load arm</div>
+    <p>The <strong>effort arm</strong> is the distance from the fulcrum to where you push.
+    The <strong>load arm</strong> is the distance from the fulcrum to the load.</p>
+    <p>If your effort arm is <strong>longer</strong> than the load arm, you don't need as much force.
+    That's why a crowbar makes lifting easier!</p>
+
+    <div class="example">
+      <strong>Example:</strong> A crowbar has an effort arm of 60 cm and a load arm of 10 cm.<br>
+      IMA = 60 ÷ 10 = <strong>6</strong>. You can lift 6× more weight than the force you push with!
+    </div>
+
+    <h3>Class summary table</h3>
+    <table>
+      <tr><th>Class</th><th>Middle</th><th>IMA</th><th>Trade-off</th></tr>
+      <tr><td>1</td><td>Fulcrum</td><td>Can be &gt;1, =1, or &lt;1</td><td>Depends on arm lengths</td></tr>
+      <tr><td>2</td><td>Load</td><td>Always &gt; 1</td><td>Less force, but slower motion</td></tr>
+      <tr><td>3</td><td>Effort</td><td>Always &lt; 1</td><td>More force needed, but faster motion</td></tr>
+    </table>
+
+    <h3>🧮 Try it: Lever IMA calculator</h3>
+    <div class="calc-row">
+      Effort arm (cm): <input type="number" id="lever-ea" value="60">
+      Load arm (cm): <input type="number" id="lever-la" value="10">
+      <button class="primary" onclick="calcLeverIMA()">Calculate IMA</button>
+    </div>
+    <div id="lever-ima-result" class="formula"></div>
+  </div>
+
+  <!-- Lever mini-quiz -->
+  <div class="card">
+    <h3>⚡ Mini Quiz: Levers</h3>
+    <div id="mini-lever"></div>
+  </div>
+</section>
+
+<!-- ============ INCLINED PLANE ============ -->
+<section id="inclined">
+  <h2>Inclined Plane</h2>
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">🛝🏔️♿</span></div>
+    <p>An <span class="key-term">inclined plane</span> is a flat, slanted surface — basically a ramp.
+    It lets you raise something heavy by pushing it up the slope instead of lifting straight up.</p>
+
+    <svg viewBox="0 0 300 140" style="width:100%; max-width:350px;">
+      <polygon points="20,120 280,120 280,40" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+      <rect x="220" y="62" width="40" height="25" fill="#16a34a"/>
+      <text x="240" y="55" text-anchor="middle" font-size="12" font-weight="700">Load</text>
+      <text x="150" y="135" text-anchor="middle" font-size="13" font-weight="700">Length (L)</text>
+      <text x="285" y="80" font-size="13" font-weight="700">Height (h)</text>
+    </svg>
+
+    <h3>Two key measurements</h3>
+    <ul>
+      <li><strong>Length (L):</strong> how long the slope is</li>
+      <li><strong>Height (h):</strong> how tall the ramp is</li>
+    </ul>
+
+    <div class="formula">IMA = length ÷ height</div>
+
+    <div class="example">
+      <strong>Example:</strong> A ramp is 6 m long and rises 2 m high.<br>
+      IMA = 6 ÷ 2 = <strong>3</strong>. You push with 1/3 the force, but you push 3× the distance.
+    </div>
+
+    <div class="tip">
+      <strong>The trade:</strong> A longer, gentler ramp is easier to push up — but you walk farther.
+      Total work is about the same!
+    </div>
+
+    <h3>Examples in the real world</h3>
+    <p>♿ Wheelchair ramps, 🛝 slides, 🪜 stairs (a series of small inclined planes), 🛣️ highway exit ramps, 🚚 loading dock ramps.</p>
+
+    <h3>🧮 Try it: Ramp IMA calculator</h3>
+    <div class="calc-row">
+      Length (m): <input type="number" id="ramp-l" value="6">
+      Height (m): <input type="number" id="ramp-h" value="2">
+      <button class="primary" onclick="calcRampIMA()">Calculate IMA</button>
+    </div>
+    <div id="ramp-ima-result" class="formula"></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Inclined Plane</h3>
+    <div id="mini-inclined"></div>
+  </div>
+</section>
+
+<!-- ============ PULLEY ============ -->
+<section id="pulley">
+  <h2>Pulley</h2>
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">🚩🪟🏗️</span></div>
+    <p>A <span class="key-term">pulley</span> is a wheel with a groove that a rope rides in.
+    Pulling on the rope changes the direction (or amount) of force needed to lift a load.</p>
+
+    <h3>Three types</h3>
+    <div class="grid3">
+      <div class="card">
+        <h4>Fixed Pulley</h4>
+        <div style="text-align:center; font-size:42px;">🚩</div>
+        <svg viewBox="0 0 120 160" style="width:100%; height:130px;">
+          <circle cx="60" cy="30" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+          <line x1="60" y1="16" x2="60" y2="10" stroke="#1e293b" stroke-width="2"/>
+          <line x1="46" y1="30" x2="46" y2="140" stroke="#475569" stroke-width="2"/>
+          <line x1="74" y1="30" x2="74" y2="120" stroke="#475569" stroke-width="2"/>
+          <rect x="36" y="140" width="20" height="14" fill="#16a34a"/>
+          <path d="M74 110 v15" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="84" y="115" font-size="10" font-weight="700">Pull</text>
+        </svg>
+        <p class="small"><strong>IMA = 1</strong></p>
+        <p>Changes direction of force. Pull DOWN to lift UP.</p>
+        <p><strong>Examples:</strong> flagpole 🚩, window blinds</p>
+      </div>
+      <div class="card">
+        <h4>Movable Pulley</h4>
+        <div style="text-align:center; font-size:42px;">🏗️</div>
+        <svg viewBox="0 0 120 160" style="width:100%; height:130px;">
+          <line x1="20" y1="10" x2="100" y2="10" stroke="#1e293b" stroke-width="3"/>
+          <circle cx="60" cy="80" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+          <line x1="46" y1="80" x2="46" y2="10" stroke="#475569" stroke-width="2"/>
+          <line x1="74" y1="80" x2="74" y2="10" stroke="#475569" stroke-width="2"/>
+          <line x1="60" y1="94" x2="60" y2="120" stroke="#1e293b" stroke-width="2"/>
+          <rect x="48" y="120" width="24" height="18" fill="#16a34a"/>
+          <path d="M74 30 v-15" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+        </svg>
+        <p class="small"><strong>IMA = 2</strong></p>
+        <p>The pulley moves WITH the load. Half the force, but pull twice as far.</p>
+        <p><strong>Examples:</strong> construction crane hook</p>
+      </div>
+      <div class="card">
+        <h4>Compound (Block &amp; Tackle)</h4>
+        <div style="text-align:center; font-size:42px;">⛵</div>
+        <svg viewBox="0 0 120 160" style="width:100%; height:130px;">
+          <line x1="20" y1="10" x2="100" y2="10" stroke="#1e293b" stroke-width="3"/>
+          <circle cx="40" cy="30" r="10" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+          <circle cx="60" cy="100" r="12" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+          <line x1="50" y1="100" x2="50" y2="30" stroke="#475569" stroke-width="2"/>
+          <line x1="70" y1="100" x2="70" y2="22" stroke="#475569" stroke-width="2"/>
+          <line x1="30" y1="30" x2="30" y2="140" stroke="#475569" stroke-width="2"/>
+          <line x1="60" y1="112" x2="60" y2="125" stroke="#1e293b" stroke-width="2"/>
+          <rect x="48" y="125" width="24" height="14" fill="#16a34a"/>
+          <path d="M30 140 v8" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+        </svg>
+        <p class="small"><strong>IMA = number of rope segments holding the load</strong></p>
+        <p>Combines fixed + movable pulleys.</p>
+        <p><strong>Examples:</strong> sailboats ⛵, gym weight machines, elevators 🛗</p>
+      </div>
+    </div>
+
+    <div class="formula">IMA of pulley = number of rope segments supporting the load</div>
+
+    <div class="tip">
+      <strong>How to count:</strong> Look at the load. Count every rope segment going UP from the movable pulley.
+      Don't count the rope segment going UP and over a fixed pulley to your hand (the segment YOU pull on doesn't count unless it pulls UP on the load directly).
+    </div>
+
+    <h3>🧮 Try it: Pulley IMA</h3>
+    <div class="calc-row">
+      How many ropes support the load? <input type="number" id="pul-n" value="2">
+      <button class="primary" onclick="calcPulley()">Show IMA</button>
+    </div>
+    <div id="pul-result" class="formula"></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Pulley</h3>
+    <div id="mini-pulley"></div>
+  </div>
+</section>
+
+<!-- ============ WHEEL AND AXLE ============ -->
+<section id="wheel-axle">
+  <h2>Wheel and Axle</h2>
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">🚗🎡🪛</span></div>
+    <p>A <span class="key-term">wheel and axle</span> is a large wheel attached to a smaller rod (the
+    axle). When the wheel turns, the axle turns too — a small force on the wheel becomes a strong
+    twist on the axle.</p>
+
+    <div style="text-align:center;">
+      <svg viewBox="0 0 200 200" style="width:200px;">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#1e293b" stroke-width="4"/>
+        <circle cx="100" cy="100" r="20" fill="#94a3b8" stroke="#1e293b" stroke-width="3"/>
+        <line x1="20" y1="100" x2="40" y2="100" stroke="#dc2626" stroke-width="3"/>
+        <text x="60" y="105" font-size="12" font-weight="700">R (wheel)</text>
+        <line x1="100" y1="100" x2="120" y2="100" stroke="#16a34a" stroke-width="3"/>
+        <text x="120" y="125" font-size="12" font-weight="700">r (axle)</text>
+      </svg>
+    </div>
+
+    <div class="formula">IMA = radius of wheel ÷ radius of axle</div>
+
+    <div class="example">
+      <strong>Example:</strong> A doorknob 🚪 has a wheel radius of 4 cm and an axle radius of 1 cm.<br>
+      IMA = 4 ÷ 1 = <strong>4</strong>. A small twist on the knob = 4× the turning force on the latch.
+    </div>
+
+    <h3>Examples</h3>
+    <ul>
+      <li>🚪 Doorknob (wheel = knob, axle = rod inside)</li>
+      <li>🚗 Steering wheel</li>
+      <li>🪛 Screwdriver (handle = wheel, shaft = axle)</li>
+      <li>🚰 Faucet handle</li>
+      <li>🎡 Ferris wheel</li>
+      <li>🚲 Car or bicycle wheels (axle drives wheel for speed and distance)</li>
+    </ul>
+
+    <div class="tip">
+      <strong>Two uses:</strong> When the wheel is the input (you turn it), you trade distance for force.
+      When the axle is the input (like a car engine turning the axle), you trade force for distance/speed.
+    </div>
+
+    <h3>🧮 Try it</h3>
+    <div class="calc-row">
+      Wheel radius: <input type="number" id="wa-R" value="4">
+      Axle radius: <input type="number" id="wa-r" value="1">
+      <button class="primary" onclick="calcWA()">Calculate IMA</button>
+    </div>
+    <div id="wa-result" class="formula"></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Wheel &amp; Axle</h3>
+    <div id="mini-wa"></div>
+  </div>
+</section>
+
+<!-- ============ WEDGE ============ -->
+<section id="wedge">
+  <h2>Wedge</h2>
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">🔪🪓📌</span></div>
+    <p>A <span class="key-term">wedge</span> is like a moving inclined plane. Instead of an object sliding up a ramp,
+    the wedge itself moves and pushes things apart. Wedges <strong>cut</strong>, <strong>split</strong>, or <strong>hold</strong>.</p>
+
+    <div style="text-align:center;">
+      <svg viewBox="0 0 200 120" style="width:200px;">
+        <polygon points="20,60 180,30 180,90" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+        <text x="190" y="65" font-size="13" font-weight="700">W</text>
+        <text x="90" y="115" text-anchor="middle" font-size="13" font-weight="700">Length (L)</text>
+        <path d="M5 60 h12" stroke="#dc2626" stroke-width="3" marker-end="url(#arr)"/>
+      </svg>
+    </div>
+
+    <h3>Two measurements</h3>
+    <ul>
+      <li><strong>Length (L):</strong> how long the wedge is (slope side)</li>
+      <li><strong>Width (W):</strong> how thick the back is</li>
+    </ul>
+
+    <div class="formula">IMA = length ÷ width</div>
+    <p>A longer, thinner wedge has a higher IMA — easier to push in. That's why sharp knives cut better than dull ones!</p>
+
+    <h3>Examples</h3>
+    <ul>
+      <li>🔪 Knife (cuts food)</li>
+      <li>🪓 Axe (splits wood)</li>
+      <li>⛏️ Chisel</li>
+      <li>🚜 Snowplow blade</li>
+      <li>🚪 Doorstop</li>
+      <li>🦷 Your front teeth!</li>
+      <li>📌 Nails, pins, tacks (the pointy end is a wedge)</li>
+    </ul>
+
+    <div class="tip">
+      <strong>Wedge vs. Inclined Plane:</strong> An inclined plane <em>stays still</em> while objects move on it. A wedge <em>moves into</em> the object.
+    </div>
+
+    <h3>🧮 Try it</h3>
+    <div class="calc-row">
+      Length: <input type="number" id="wedge-L" value="10">
+      Width: <input type="number" id="wedge-W" value="2">
+      <button class="primary" onclick="calcWedge()">Calculate IMA</button>
+    </div>
+    <div id="wedge-result" class="formula"></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Wedge</h3>
+    <div id="mini-wedge"></div>
+  </div>
+</section>
+
+<!-- ============ SCREW ============ -->
+<section id="screw">
+  <h2>Screw</h2>
+  <div class="card">
+    <div style="text-align:center;"><span class="big-emoji">🔩💡🌀</span></div>
+    <p>A <span class="key-term">screw</span> is an inclined plane wrapped around a cylinder.
+    Each turn of the screw moves it a little bit forward.</p>
+
+    <div style="text-align:center;">
+      <svg viewBox="0 0 100 200" style="height:200px;">
+        <rect x="40" y="10" width="20" height="160" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+        <path d="M40 30 L60 25 M40 45 L60 40 M40 60 L60 55 M40 75 L60 70 M40 90 L60 85 M40 105 L60 100 M40 120 L60 115 M40 135 L60 130 M40 150 L60 145"
+              stroke="#1e293b" stroke-width="2" fill="none"/>
+        <polygon points="40,170 60,170 50,190" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <text x="70" y="55" font-size="11" font-weight="700">Pitch</text>
+        <path d="M65 50 v15" stroke="#dc2626" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <h3>Key terms</h3>
+    <ul>
+      <li><strong>Threads:</strong> the spiral ridges</li>
+      <li><strong>Pitch:</strong> the distance between two threads (how far it moves in one turn)</li>
+      <li><strong>Circumference:</strong> distance around the screw = 2 × π × radius</li>
+    </ul>
+
+    <div class="formula">IMA = circumference ÷ pitch</div>
+    <p>Threads that are closer together = higher IMA = easier to turn (but takes more turns).</p>
+
+    <h3>Examples</h3>
+    <ul>
+      <li>🔩 Wood and metal screws</li>
+      <li>💡 Light bulb base</li>
+      <li>🫙 Jar lids</li>
+      <li>🥤 Bottle caps</li>
+      <li>🌀 Spiral staircase</li>
+      <li>🍾 Corkscrew</li>
+      <li>🪛 Drill bit</li>
+      <li>🔧 Bolts and nuts</li>
+    </ul>
+
+    <div class="tip">
+      <strong>Try this idea:</strong> Cut a paper triangle (an inclined plane) and wrap it around a pencil. The slanted edge becomes the screw threads!
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Screw</h3>
+    <div id="mini-screw"></div>
+  </div>
+</section>
+
+<!-- ============ FORCES ============ -->
+<section id="forces">
+  <h2>Forces &amp; Newton's Laws</h2>
+
+  <div class="card">
+    <h3>What is a force?</h3>
+    <p>A <span class="key-term">force</span> is a push or a pull. Forces have a <strong>size</strong> (how strong) and a <strong>direction</strong> (which way). We draw forces as arrows.</p>
+    <ul>
+      <li>Longer arrow = bigger force</li>
+      <li>Arrow points in the direction of the force</li>
+    </ul>
+    <p>Forces are measured in <strong>Newtons (N)</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Common forces you'll see</h3>
+    <div class="grid2">
+      <div>
+        <ul>
+          <li><strong>🌎 Gravity (weight):</strong> always points DOWN</li>
+          <li><strong>⬆️ Normal force:</strong> a surface pushing UP (perpendicular to surface)</li>
+          <li><strong>👋 Applied force:</strong> a push or pull from a person or object</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><strong>🛑 Friction:</strong> opposes motion; opposite to direction of sliding</li>
+          <li><strong>🧵 Tension:</strong> the pull along a rope or string</li>
+          <li><strong>💨 Air resistance:</strong> opposes motion through air</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Free Body Diagrams (FBD)</h3>
+    <p>A <span class="key-term">free body diagram</span> shows all the forces acting on ONE object. Draw the object as a box or dot, then draw arrows for every force.</p>
+
+    <p><strong>Example: A book sitting on a table 📕</strong></p>
+    <div style="text-align:center;">
+      <svg viewBox="0 0 200 200" style="width:220px;">
+        <rect x="70" y="80" width="60" height="40" fill="#fef3c7" stroke="#1e293b" stroke-width="2"/>
+        <text x="100" y="105" text-anchor="middle" font-size="13" font-weight="700">Book</text>
+        <line x1="100" y1="80" x2="100" y2="30" stroke="#16a34a" stroke-width="3" marker-end="url(#arrG)"/>
+        <text x="105" y="35" font-size="12" font-weight="700" fill="#16a34a">Normal (up)</text>
+        <line x1="100" y1="120" x2="100" y2="170" stroke="#dc2626" stroke-width="3" marker-end="url(#arrR)"/>
+        <text x="105" y="160" font-size="12" font-weight="700" fill="#dc2626">Gravity (down)</text>
+        <defs>
+          <marker id="arrG" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/>
+          </marker>
+          <marker id="arrR" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+    <p>The book isn't moving, so the forces must <strong>cancel out</strong>. Gravity pulls down with the same strength that the table pushes up.</p>
+  </div>
+
+  <div class="card">
+    <h3>Net Force</h3>
+    <p>The <span class="key-term">net force</span> is the total force after adding all forces together (with direction).</p>
+    <ul>
+      <li>Forces in the same direction → <strong>add</strong> them</li>
+      <li>Forces in opposite directions → <strong>subtract</strong> them</li>
+      <li>If net force = 0 → object stays still OR moves at steady speed (equilibrium!)</li>
+      <li>If net force is NOT 0 → object speeds up, slows down, or changes direction</li>
+    </ul>
+
+    <div class="example">
+      <strong>Example:</strong> Two kids pull a wagon. One pulls right with 10 N, the other pulls right with 6 N. Net = 16 N right.<br>
+      Now one pulls right with 10 N and the other pulls left with 6 N. Net = 4 N right.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Newton's 3 Laws of Motion</h3>
+
+    <div class="grid3">
+      <div class="card">
+        <h4>1st Law: Inertia</h4>
+        <div style="text-align:center; font-size:48px;">🚗💨</div>
+        <p>An object at <strong>rest</strong> stays at rest, and an object in <strong>motion</strong> keeps moving in a straight line — <strong>unless</strong> a force acts on it.</p>
+        <p class="small"><em>That's why your body lurches forward when a car suddenly stops!</em></p>
+      </div>
+      <div class="card">
+        <h4>2nd Law: F = m × a</h4>
+        <div style="text-align:center; font-size:48px;">🛒</div>
+        <p>The harder you push (Force), the more an object accelerates. The heavier it is (mass), the slower it accelerates.</p>
+        <p class="small"><em>It's easier to push an empty grocery cart than a full one.</em></p>
+      </div>
+      <div class="card">
+        <h4>3rd Law: Action-Reaction</h4>
+        <div style="text-align:center; font-size:48px;">🚀</div>
+        <p>For every action, there is an <strong>equal and opposite</strong> reaction.</p>
+        <p class="small"><em>You jump (push down on Earth), Earth pushes you up. A rocket pushes hot gas down; gas pushes rocket up.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Qualitative Energy Transfer</h3>
+    <p>Energy isn't created or destroyed — it just moves around or changes form.
+    In a simple machine, you put energy IN, and the machine passes it to the load.</p>
+
+    <p>Some energy is always <strong>lost as heat</strong> due to <span class="key-term">friction</span>.
+    That's why machines are never 100% efficient.</p>
+
+    <div class="example">
+      <strong>Example:</strong> You push a box up a ramp.
+      <ul>
+        <li>Your muscles use <em>chemical energy</em> 🍎</li>
+        <li>That becomes <em>kinetic energy</em> (the box moves) 📦💨</li>
+        <li>And turns into <em>gravitational potential energy</em> (the box is higher) ⬆️</li>
+        <li>A little is lost as <em>heat</em> from friction 🔥</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Forces &amp; Newton</h3>
+    <div id="mini-forces"></div>
+  </div>
+</section>
+
+<!-- ============ MECH ADVANTAGE ============ -->
+<section id="ma">
+  <h2>Mechanical Advantage</h2>
+
+  <div class="card">
+    <h3>What is mechanical advantage?</h3>
+    <p><span class="key-term">Mechanical advantage (MA)</span> tells you how much a simple machine multiplies your force.</p>
+    <ul>
+      <li>MA = 4 → machine outputs 4× the force you put in</li>
+      <li>MA = 1 → just changes direction, not force</li>
+      <li>MA &lt; 1 → more force in, less out (you get more SPEED or DISTANCE instead)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>IMA vs AMA</h3>
+    <div class="grid2">
+      <div>
+        <h4>Ideal Mechanical Advantage (IMA)</h4>
+        <p>What MA <em>would</em> be without friction. Calculated from measurements (lengths, radii).</p>
+        <div class="formula">IMA = input distance ÷ output distance</div>
+      </div>
+      <div>
+        <h4>Actual Mechanical Advantage (AMA)</h4>
+        <p>What MA <em>actually</em> is in real life (always less because of friction).</p>
+        <div class="formula">AMA = output force ÷ input force<br>(or: load ÷ effort)</div>
+      </div>
+    </div>
+    <div class="tip">
+      <strong>Always:</strong> AMA &lt; IMA in real life. Friction is the reason.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>IMA formulas for each machine</h3>
+    <table>
+      <tr><th>Machine</th><th>IMA formula</th></tr>
+      <tr><td>Lever</td><td>effort arm ÷ load arm</td></tr>
+      <tr><td>Inclined plane</td><td>length ÷ height</td></tr>
+      <tr><td>Fixed pulley</td><td>1</td></tr>
+      <tr><td>Movable pulley</td><td>2</td></tr>
+      <tr><td>Compound pulley</td><td># rope segments holding the load</td></tr>
+      <tr><td>Wheel &amp; axle</td><td>radius of wheel ÷ radius of axle</td></tr>
+      <tr><td>Wedge</td><td>length ÷ width</td></tr>
+      <tr><td>Screw</td><td>circumference ÷ pitch</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Efficiency</h3>
+    <p><span class="key-term">Efficiency</span> tells you what fraction of input energy actually does useful work.</p>
+    <div class="formula">Efficiency = (AMA ÷ IMA) × 100%</div>
+    <p>A perfect machine would have 100% efficiency, but no real machine does because of friction.</p>
+
+    <div class="example">
+      <strong>Example:</strong> A ramp has IMA = 5. In real life, AMA = 4.<br>
+      Efficiency = (4 ÷ 5) × 100% = <strong>80%</strong>. 20% of energy was lost to friction and heat.
+    </div>
+
+    <h3>🧮 Try it: Efficiency calculator</h3>
+    <div class="calc-row">
+      AMA: <input type="number" id="eff-ama" value="4" step="0.1">
+      IMA: <input type="number" id="eff-ima" value="5" step="0.1">
+      <button class="primary" onclick="calcEff()">Calculate Efficiency</button>
+    </div>
+    <div id="eff-result" class="formula"></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Mini Quiz: Mechanical Advantage</h3>
+    <div id="mini-ma"></div>
+  </div>
+</section>
+
+<!-- ============ IDENTIFY ============ -->
+<section id="identify">
+  <h2>🔍 Identify the Simple Machine</h2>
+  <div class="card">
+    <p>Look at the picture and pick which simple machine(s) it uses.</p>
+    <div id="identify-box"></div>
+    <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <button class="secondary" onclick="prevIdentify()">← Previous</button>
+      <button class="secondary" onclick="nextIdentify()">Next →</button>
+      <button class="primary" onclick="resetIdentify()">Reset</button>
+      <span id="identify-score" style="margin-left:14px; font-weight:700;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MATCH IT ============ -->
+<section id="match">
+  <h2>🎯 Match It! Drag &amp; Drop Game</h2>
+  <div class="card">
+    <p>Drag each <strong>everyday object</strong> from the left side to its <strong>simple machine</strong> on the right.</p>
+    <p class="small">Tip on a tablet: tap and hold to drag.</p>
+    <div class="dnd-wrap">
+      <div>
+        <h4>Objects</h4>
+        <div class="dnd-items" id="dnd-items"></div>
+      </div>
+      <div>
+        <h4>Simple Machines</h4>
+        <div class="dnd-targets" id="dnd-targets"></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <button class="primary" onclick="checkMatch()">Check Answers</button>
+      <button class="secondary" onclick="resetMatch()">Reset</button>
+      <span id="match-result" style="margin-left:14px; font-weight:700;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEVER DETECTIVE ============ -->
+<section id="lever-det">
+  <h2>🕵️ Lever Class Detective</h2>
+  <div class="card">
+    <p>Look at the lever drawing. Where is the fulcrum (F), the load (L), and the effort (E)?
+    Use the "FLE 1-2-3" rule to figure out the class!</p>
+    <div id="ld-box"></div>
+    <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <button class="secondary" onclick="prevLD()">← Previous</button>
+      <button class="secondary" onclick="nextLD()">Next →</button>
+      <button class="primary" onclick="resetLD()">Reset</button>
+      <span id="ld-score" style="margin-left:14px; font-weight:700;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PULLEY COUNTER ============ -->
+<section id="pulley-count">
+  <h2>🪢 Pulley Rope Counter</h2>
+  <div class="card">
+    <p>Count the rope segments that <strong>support the load</strong>. That count IS the IMA!</p>
+    <div id="pc-box"></div>
+    <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <button class="secondary" onclick="prevPC()">← Previous</button>
+      <button class="secondary" onclick="nextPC()">Next →</button>
+      <button class="primary" onclick="resetPC()">Reset</button>
+      <span id="pc-score" style="margin-left:14px; font-weight:700;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWTON SCENARIOS ============ -->
+<section id="newton">
+  <h2>🍎 Newton's Law Scenarios</h2>
+  <div class="card">
+    <p>Read each scenario. Which of Newton's 3 laws does it best show?</p>
+    <div id="nw-box"></div>
+    <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <button class="secondary" onclick="prevNW()">← Previous</button>
+      <button class="secondary" onclick="nextNW()">Next →</button>
+      <button class="primary" onclick="resetNW()">Reset</button>
+      <span id="nw-score" style="margin-left:14px; font-weight:700;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FREE BODY DIAGRAM BUILDER ============ -->
+<section id="fbd">
+  <h2>📐 Free Body Diagram Builder</h2>
+  <div class="card">
+    <p>Pick a scenario, then click the force buttons to add arrows. Try to add only the forces that are actually present!</p>
+    <select id="fbd-scenario" onchange="loadFBD()">
+      <option value="0">📕 Book sitting on a table</option>
+      <option value="1">📦 Box being pushed across the floor (with friction)</option>
+      <option value="2">🪁 Object hanging from a rope (still)</option>
+      <option value="3">🍎 Apple falling from a tree (ignoring air resistance)</option>
+      <option value="4">📦 Box sitting still on an inclined ramp (with friction)</option>
+    </select>
+
+    <div class="fbd-stage" id="fbd-stage"></div>
+
+    <div class="fbd-buttons">
+      <button onclick="addFBD('gravity')">⬇️ Gravity</button>
+      <button onclick="addFBD('normal')">⬆️ Normal</button>
+      <button onclick="addFBD('applied-right')">➡️ Applied (right)</button>
+      <button onclick="addFBD('friction-left')">⬅️ Friction (left)</button>
+      <button onclick="addFBD('tension')">⬆️ Tension (up)</button>
+      <button onclick="clearFBD()">🗑️ Clear</button>
+      <button class="primary" onclick="checkFBD()" style="background:var(--good);">Check</button>
+    </div>
+    <div id="fbd-result" style="margin-top:10px; font-weight:700;"></div>
+  </div>
+</section>
+
+<!-- ============ PRACTICE TEST (from real exam) ============ -->
+<section id="practice-test">
+  <h2>📝 Practice Test (Real Exam Style)</h2>
+  <div class="card">
+    <p>This is a real-style practice test, just like what you'll see in the competition.
+    It has <strong>multiple choice</strong>, <strong>diagram</strong>, and <strong>numerical</strong> problems.</p>
+    <p>Click answers for multiple choice, type numbers for math problems, and tap "Show answer" on the longer questions.</p>
+    <div class="score-bar"><div class="score-fill" id="pt-fill"></div></div>
+    <p id="pt-score" style="font-weight:700;">Score: 0 / 0</p>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card">
+    <h3>1. Scissors</h3>
+    <p>A pair of scissors is an example of which type of simple machine combination?</p>
+    <div class="quiz-options" id="pt1-opts"></div>
+    <div id="pt1-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card">
+    <h3>2. Identify this lever</h3>
+    <p>Look at the simple machine shown below. Which type of machine is it?</p>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 320 160" style="width:300px;">
+        <!-- ground -->
+        <line x1="20" y1="130" x2="300" y2="130" stroke="#475569" stroke-width="2"/>
+        <!-- bar (slanted up to right) -->
+        <line x1="55" y1="120" x2="280" y2="55" stroke="#a16207" stroke-width="10"/>
+        <!-- fulcrum (wheel circle on left) -->
+        <circle cx="55" cy="120" r="12" fill="#475569"/>
+        <text x="55" y="155" text-anchor="middle" font-size="11">Fulcrum</text>
+        <!-- load (box in middle) -->
+        <rect x="135" y="65" width="40" height="30" fill="#475569"/>
+        <text x="155" y="58" text-anchor="middle" font-size="12" font-weight="700">Load</text>
+        <!-- effort arrow on right -->
+        <line x1="270" y1="20" x2="270" y2="55" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="270" y="15" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <defs>
+          <marker id="ptArrR" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+    <div class="quiz-options" id="pt2-opts"></div>
+    <div id="pt2-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card">
+    <h3>3. Which is NOT a simple machine?</h3>
+    <div class="quiz-options" id="pt3-opts"></div>
+    <div id="pt3-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card">
+    <h3>4. Identify this object</h3>
+    <p>Which simple machine is this most closely related to?</p>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 100 220" style="height:200px;">
+        <ellipse cx="50" cy="14" rx="22" ry="6" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <rect x="40" y="14" width="20" height="170" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+        <path d="M40 30 L60 25 M40 45 L60 40 M40 60 L60 55 M40 75 L60 70 M40 90 L60 85 M40 105 L60 100 M40 120 L60 115 M40 135 L60 130 M40 150 L60 145 M40 165 L60 160"
+              stroke="#1e293b" stroke-width="2" fill="none"/>
+        <polygon points="40,180 60,180 50,210" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="quiz-options" id="pt4-opts"></div>
+    <div id="pt4-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card">
+    <h3>5. Soccer ball at rest</h3>
+    <p>Which of Newton's three laws best explains why a soccer ball stays at rest on the grass until someone kicks it? ⚽</p>
+    <div class="quiz-options" id="pt5-opts"></div>
+    <div id="pt5-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card">
+    <h3>6. Why is AMA &lt; IMA?</h3>
+    <p>What is the main reason the AMA of a real machine is usually less than its IMA?</p>
+    <div class="quiz-options" id="pt6-opts"></div>
+    <div id="pt6-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card">
+    <h3>7. Identify this pulley setup</h3>
+    <p>The machine shown is being used to lift a load by pulling down on the rope. What kind of machine is this?</p>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 200 240" style="width:160px;">
+        <rect x="40" y="0" width="120" height="12" fill="#475569"/>
+        <circle cx="100" cy="40" r="18" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="100" cy="40" r="3" fill="#1e293b"/>
+        <line x1="82" y1="40" x2="82" y2="180" stroke="#1e293b" stroke-width="2"/>
+        <line x1="118" y1="40" x2="118" y2="160" stroke="#1e293b" stroke-width="2"/>
+        <line x1="118" y1="140" x2="118" y2="160" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="135" y="150" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <rect x="70" y="180" width="24" height="20" fill="#475569"/>
+        <text x="82" y="215" text-anchor="middle" font-size="11">Load</text>
+      </svg>
+    </div>
+    <div class="quiz-options" id="pt7-opts"></div>
+    <div id="pt7-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card">
+    <h3>8. Box at constant speed</h3>
+    <p>A student pushes a heavy box across the floor at <strong>constant speed</strong>. What is the net force on the box?</p>
+    <div class="quiz-options" id="pt8-opts"></div>
+    <div id="pt8-fb" class="quiz-feedback"></div>
+  </div>
+
+  <!-- Q9: Lever multi-part -->
+  <div class="card">
+    <h3>9. Lever Diagram</h3>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 360 160" style="width:340px;">
+        <line x1="20" y1="130" x2="340" y2="130" stroke="#475569" stroke-width="2"/>
+        <!-- bar -->
+        <rect x="40" y="70" width="280" height="12" fill="#a16207"/>
+        <!-- load (left) -->
+        <rect x="58" y="40" width="36" height="30" fill="#475569"/>
+        <text x="76" y="32" text-anchor="middle" font-size="12" font-weight="700">30 N</text>
+        <!-- fulcrum (middle) -->
+        <polygon points="155,82 195,82 175,130" fill="#7c3aed"/>
+        <text x="175" y="148" text-anchor="middle" font-size="11">Fulcrum</text>
+        <!-- effort arrow (right) -->
+        <line x1="290" y1="40" x2="290" y2="70" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="290" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <!-- dimensions -->
+        <line x1="80" y1="100" x2="175" y2="100" stroke="#0891b2" stroke-width="1"/>
+        <text x="127" y="115" text-anchor="middle" font-size="11" fill="#0891b2">20 cm</text>
+        <line x1="175" y1="100" x2="290" y2="100" stroke="#0891b2" stroke-width="1"/>
+        <text x="232" y="115" text-anchor="middle" font-size="11" fill="#0891b2">60 cm</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What class lever is this? How can you tell?</p>
+    <details><summary>Show answer</summary>
+      <p><strong>Class 1 lever.</strong> The fulcrum is between the load and the effort (L-F-E pattern).</p>
+    </details>
+    <p><strong>b)</strong> How long is the effort arm, and how long is the load arm?</p>
+    <details><summary>Show answer</summary>
+      <p>Effort arm = <strong>60 cm</strong> (fulcrum to effort), Load arm = <strong>20 cm</strong> (fulcrum to load).</p>
+    </details>
+    <p><strong>c)</strong> How much effort force balances the 30 N load? (Use load × load arm = effort × effort arm)</p>
+    <div class="calc-row">
+      Your answer (N): <input type="number" id="pt9c-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt9c', 10)">Check</button>
+      <span id="pt9c-fb"></span>
+    </div>
+    <details><summary>Show work</summary>
+      <p>30 × 20 = E × 60 → E = 600 ÷ 60 = <strong>10 N</strong></p>
+    </details>
+    <p><strong>d)</strong> Without changing anything else, how could you INCREASE the mechanical advantage?</p>
+    <details><summary>Show answer</summary>
+      <p>Make the <strong>effort arm longer</strong> OR make the <strong>load arm shorter</strong> (move the fulcrum closer to the load). IMA = effort arm ÷ load arm — increasing the top OR decreasing the bottom raises the ratio.</p>
+    </details>
+  </div>
+
+  <!-- Q10: Inclined plane multi-part -->
+  <div class="card">
+    <h3>10. Inclined Plane</h3>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 360 180" style="width:340px;">
+        <line x1="20" y1="150" x2="340" y2="150" stroke="#475569" stroke-width="2"/>
+        <polygon points="40,150 320,150 320,60" fill="#a16207" stroke="#1e293b" stroke-width="2"/>
+        <rect x="195" y="92" width="36" height="28" fill="#475569" transform="rotate(-17, 213, 106)"/>
+        <text x="218" y="86" font-size="12" font-weight="700">60 N</text>
+        <line x1="130" y1="135" x2="170" y2="115" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="125" y="135" text-anchor="end" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <line x1="335" y1="60" x2="335" y2="150" stroke="#0891b2" stroke-width="1"/>
+        <text x="345" y="105" font-size="11" fill="#0891b2">30 cm</text>
+        <text x="180" y="170" text-anchor="middle" font-size="11" fill="#0891b2">slope length = 120 cm</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What is the purpose of this simple machine?</p>
+    <details><summary>Show answer</summary>
+      <p>To lift a heavy object to a higher place using <strong>less force</strong> (you push over a longer distance instead of lifting straight up).</p>
+    </details>
+    <p><strong>b)</strong> Write the IMA formula for an inclined plane and calculate the IMA for this ramp.</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt10b-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt10b', 4)">Check</button>
+      <span id="pt10b-fb"></span>
+    </div>
+    <details><summary>Show work</summary>
+      <p>IMA = length ÷ height = 120 ÷ 30 = <strong>4</strong></p>
+    </details>
+    <p><strong>c)</strong> How would you change this ramp to make it EASIER to push the 60 N box up to the same height?</p>
+    <details><summary>Show answer</summary>
+      <p>Make the ramp <strong>longer</strong> (gentler slope). Same height ÷ longer length = higher IMA = less force needed.</p>
+    </details>
+    <p><strong>d)</strong> If you made the ramp steeper, how would that change the force needed?</p>
+    <details><summary>Show answer</summary>
+      <p>Steeper means the length stays similar but height grows → IMA goes DOWN → you need <strong>more force</strong> to push the box up.</p>
+    </details>
+  </div>
+
+  <!-- Q11: Pulley multi-part -->
+  <div class="card">
+    <h3>11. Pulley System (Load = 40 N)</h3>
+    <p>Two rope segments support the movable pulley.</p>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 240 280" style="width:200px;">
+        <rect x="40" y="0" width="160" height="10" fill="#475569"/>
+        <!-- fixed pulley on right -->
+        <circle cx="160" cy="50" r="16" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="160" cy="50" r="3" fill="#1e293b"/>
+        <!-- movable pulley on left lower -->
+        <circle cx="90" cy="160" r="18" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="90" cy="160" r="3" fill="#1e293b"/>
+        <!-- ropes -->
+        <line x1="72" y1="160" x2="72" y2="10" stroke="#dc2626" stroke-width="3"/>
+        <line x1="108" y1="160" x2="144" y2="50" stroke="#dc2626" stroke-width="3"/>
+        <line x1="176" y1="50" x2="176" y2="240" stroke="#475569" stroke-width="3"/>
+        <line x1="176" y1="200" x2="176" y2="230" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="190" y="220" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <line x1="90" y1="178" x2="90" y2="200" stroke="#1e293b" stroke-width="2"/>
+        <rect x="68" y="200" width="44" height="22" fill="#475569"/>
+        <text x="90" y="215" text-anchor="middle" font-size="11" font-weight="700" fill="white">40 N</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What is the IMA?</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt11a-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt11a', 2)">Check</button>
+      <span id="pt11a-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>2 rope segments support the load, so IMA = <strong>2</strong>.</p></details>
+    <p><strong>b)</strong> Minimum force needed to lift the 40 N weight?</p>
+    <div class="calc-row">
+      Force (N) = <input type="number" id="pt11b-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt11b', 20)">Check</button>
+      <span id="pt11b-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>F = Load ÷ IMA = 40 ÷ 2 = <strong>20 N</strong></p></details>
+    <p><strong>c)</strong> In real life, you'd need MORE force. Why?</p>
+    <details><summary>Show answer</summary>
+      <p><strong>Friction</strong> between the rope and the pulleys (and inside the pulley bearings) makes the system less than 100% efficient. Some energy is lost as heat.</p>
+    </details>
+    <p><strong>d)</strong> How far would you pull the rope to raise the weight 10 cm? Give a real-life example.</p>
+    <details><summary>Show answer</summary>
+      <p>You'd pull <strong>2 × 10 cm = 20 cm</strong> of rope (trade more distance for less force). Real examples: construction cranes 🏗️, sailboat rigging ⛵, elevators 🛗, gym weight machines.</p>
+    </details>
+  </div>
+
+  <!-- Q12: Wheel and axle -->
+  <div class="card">
+    <h3>12. Wheel and Axle</h3>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 240 240" style="width:200px;">
+        <circle cx="120" cy="120" r="90" fill="none" stroke="#1e293b" stroke-width="3"/>
+        <circle cx="120" cy="120" r="22" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <line x1="120" y1="120" x2="40" y2="120" stroke="#0891b2" stroke-width="2"/>
+        <text x="50" y="110" font-size="11" fill="#0891b2">Wheel</text>
+        <text x="50" y="125" font-size="11" fill="#0891b2">radius</text>
+        <text x="50" y="140" font-size="11" fill="#0891b2">= 20 cm</text>
+        <line x1="120" y1="120" x2="142" y2="120" stroke="#0891b2" stroke-width="2"/>
+        <text x="148" y="115" font-size="11" fill="#0891b2">Axle</text>
+        <text x="148" y="130" font-size="11" fill="#0891b2">radius</text>
+        <text x="148" y="145" font-size="11" fill="#0891b2">= 4 cm</text>
+        <line x1="120" y1="10" x2="120" y2="30" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="120" y="8" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+        <rect x="106" y="210" width="28" height="22" fill="#475569"/>
+        <text x="120" y="226" text-anchor="middle" font-size="10" fill="white">Load</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What simple machine is this? Where is the effort, and where is the load?</p>
+    <details><summary>Show answer</summary>
+      <p>Wheel and axle. <strong>Effort is on the wheel</strong> (the outer rim, where the arrow is). <strong>Load is on the axle</strong> (the inner shaft, where the weight hangs).</p>
+    </details>
+    <p><strong>b)</strong> IMA formula?</p>
+    <details><summary>Show answer</summary>
+      <div class="formula">IMA = radius of wheel ÷ radius of axle</div>
+    </details>
+    <p><strong>c)</strong> Calculate the IMA.</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt12c-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt12c', 5)">Check</button>
+      <span id="pt12c-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>20 ÷ 4 = <strong>5</strong></p></details>
+    <p><strong>d)</strong> Give three real-life examples.</p>
+    <details><summary>Show answer</summary>
+      <p>Doorknob 🚪, steering wheel 🚗, screwdriver 🪛, faucet handle 🚰, Ferris wheel 🎡, pizza cutter 🍕.</p>
+    </details>
+  </div>
+
+  <!-- Q13: Screw -->
+  <div class="card">
+    <h3>13. Screw (Pitch = 0.2 cm)</h3>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 200 240" style="height:200px;">
+        <ellipse cx="100" cy="20" rx="28" ry="8" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <rect x="85" y="20" width="30" height="170" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+        <path d="M85 35 L115 30 M85 50 L115 45 M85 65 L115 60 M85 80 L115 75 M85 95 L115 90 M85 110 L115 105 M85 125 L115 120 M85 140 L115 135 M85 155 L115 150 M85 170 L115 165"
+              stroke="#1e293b" stroke-width="2" fill="none"/>
+        <polygon points="85,185 115,185 100,215" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <line x1="125" y1="50" x2="125" y2="65" stroke="#0891b2" stroke-width="2"/>
+        <text x="135" y="55" font-size="11" fill="#0891b2">pitch =</text>
+        <text x="135" y="68" font-size="11" fill="#0891b2">0.2 cm</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What simple machine is the screw most closely related to?</p>
+    <details><summary>Show answer</summary>
+      <p>An <strong>inclined plane</strong> wrapped around a cylinder. The threads form a spiral ramp.</p>
+    </details>
+    <p><strong>b)</strong> How many full turns to drive this screw 1 cm into wood?</p>
+    <div class="calc-row">
+      Turns = <input type="number" id="pt13b-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt13b', 5)">Check</button>
+      <span id="pt13b-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>1 cm ÷ 0.2 cm per turn = <strong>5 turns</strong></p></details>
+    <p><strong>c)</strong> What's the advantage of needing many turns to move a small distance?</p>
+    <details><summary>Show answer</summary>
+      <p>You need much <strong>less force per turn</strong>. You trade more turns (distance) for less force.</p>
+    </details>
+    <p><strong>d)</strong> Three real-life examples of screws.</p>
+    <details><summary>Show answer</summary>
+      <p>Wood screws 🔩, jar lids 🫙, light bulb bases 💡, bottle caps, drill bits 🪛, spiral staircases 🌀, corkscrews 🍾.</p>
+    </details>
+  </div>
+
+  <!-- Q14: Wedge -->
+  <div class="card">
+    <h3>14. Wedge</h3>
+    <div style="text-align:center; background:white; padding:12px; border-radius:8px; border:2px solid var(--border);">
+      <svg viewBox="0 0 280 180" style="width:280px;">
+        <rect x="40" y="80" width="200" height="70" fill="#a16207" stroke="#1e293b" stroke-width="2"/>
+        <text x="80" y="120" font-size="12" fill="white" font-weight="700">material</text>
+        <polygon points="130,40 160,40 145,130" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <line x1="145" y1="10" x2="145" y2="40" stroke="#dc2626" stroke-width="3" marker-end="url(#ptArrR)"/>
+        <text x="160" y="20" font-size="12" font-weight="700" fill="#dc2626">Effort</text>
+      </svg>
+    </div>
+    <p><strong>a)</strong> What simple machine is this and what is its purpose?</p>
+    <details><summary>Show answer</summary>
+      <p><strong>Wedge.</strong> Purpose: to <strong>split, cut, or push apart</strong> material by turning a downward push into sideways force.</p>
+    </details>
+    <p><strong>b)</strong> Give one real-life example of a wedge (different from the picture).</p>
+    <details><summary>Show answer</summary>
+      <p>Knife 🔪, axe 🪓, chisel, nail 📌, doorstop 🚪, snowplow blade 🚜, your front teeth 🦷.</p>
+    </details>
+    <p><strong>c)</strong> How is a wedge similar to and different from an inclined plane?</p>
+    <details><summary>Show answer</summary>
+      <p><strong>Similar:</strong> Both have a slanted (slope) surface. <strong>Different:</strong> An inclined plane stays still while objects slide UP it. A wedge moves INTO an object to push it apart.</p>
+    </details>
+    <p><strong>d)</strong> A wedge can be made by combining which TWO simpler shapes?</p>
+    <details><summary>Show answer</summary>
+      <p>Two inclined planes placed <strong>back-to-back</strong> (sloping in opposite directions).</p>
+    </details>
+  </div>
+
+  <!-- Numerical problems -->
+  <div class="card">
+    <h3>15. Acceleration (F = m × a)</h3>
+    <p>A shopping cart with mass <strong>12 kg</strong> is pushed with a net force of <strong>24 N</strong>. What is the acceleration?</p>
+    <div class="calc-row">
+      a = <input type="number" id="pt15-input" step="0.1"> m/s²
+      <button class="primary" onclick="checkPT('pt15', 2)">Check</button>
+      <span id="pt15-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>a = F ÷ m = 24 ÷ 12 = <strong>2 m/s²</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>16. Lever IMA</h3>
+    <p>A first-class lever has effort arm <strong>80 cm</strong> and load arm <strong>20 cm</strong>. IMA?</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt16-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt16', 4)">Check</button>
+      <span id="pt16-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>80 ÷ 20 = <strong>4</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>17. Ramp IMA</h3>
+    <p>A ramp is <strong>6.0 m long</strong> and rises to <strong>1.5 m</strong>. IMA?</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt17-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt17', 4)">Check</button>
+      <span id="pt17-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>6.0 ÷ 1.5 = <strong>4</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>18. AMA of a Pulley System</h3>
+    <p>A worker lifts a <strong>600 N</strong> crate by pulling with <strong>150 N</strong>. AMA?</p>
+    <div class="calc-row">
+      AMA = <input type="number" id="pt18-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt18', 4)">Check</button>
+      <span id="pt18-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>AMA = load ÷ effort = 600 ÷ 150 = <strong>4</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>19. Efficiency</h3>
+    <p>A machine has IMA = <strong>8</strong> and AMA = <strong>6</strong>. Efficiency (%)?</p>
+    <div class="calc-row">
+      Efficiency = <input type="number" id="pt19-input" step="0.1"> %
+      <button class="primary" onclick="checkPT('pt19', 75)">Check</button>
+      <span id="pt19-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>(6 ÷ 8) × 100% = <strong>75%</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>20. Net Force on a Sled</h3>
+    <p>A sled is pulled right with <strong>50 N</strong>. Friction pulls back left with <strong>18 N</strong>. Net force?</p>
+    <div class="calc-row">
+      Magnitude = <input type="number" id="pt20-input" step="0.1"> N (to the right)
+      <button class="primary" onclick="checkPT('pt20', 32)">Check</button>
+      <span id="pt20-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>50 − 18 = <strong>32 N to the right</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>21. Inclined Plane (60 cm, 15 cm)</h3>
+    <p><strong>a)</strong> IMA?</p>
+    <div class="calc-row">
+      IMA = <input type="number" id="pt21a-input" step="0.1">
+      <button class="primary" onclick="checkPT('pt21a', 4)">Check</button>
+      <span id="pt21a-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>60 ÷ 15 = <strong>4</strong></p></details>
+    <p><strong>b)</strong> Minimum force to move a 90 N box up (ignoring friction)?</p>
+    <div class="calc-row">
+      Force = <input type="number" id="pt21b-input" step="0.1"> N
+      <button class="primary" onclick="checkPT('pt21b', 22.5)">Check</button>
+      <span id="pt21b-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>F = 90 ÷ 4 = <strong>22.5 N</strong></p></details>
+  </div>
+
+  <div class="card">
+    <h3>22. Bob's Ramp (Work &amp; Efficiency)</h3>
+    <p>Bob pushes a <strong>200 N</strong> box up a <strong>3.0 m</strong> ramp to a height of <strong>1.2 m</strong> with a force of <strong>100 N</strong>.</p>
+    <p><strong>a)</strong> Input work (Joules)?</p>
+    <div class="calc-row">
+      Input work = <input type="number" id="pt22a-input" step="0.1"> J
+      <button class="primary" onclick="checkPT('pt22a', 300)">Check</button>
+      <span id="pt22a-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>Work = force × distance = 100 × 3.0 = <strong>300 J</strong></p></details>
+    <p><strong>b)</strong> Useful output work?</p>
+    <div class="calc-row">
+      Output work = <input type="number" id="pt22b-input" step="0.1"> J
+      <button class="primary" onclick="checkPT('pt22b', 240)">Check</button>
+      <span id="pt22b-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>Output = weight × height = 200 × 1.2 = <strong>240 J</strong></p></details>
+    <p><strong>c)</strong> Efficiency (%)?</p>
+    <div class="calc-row">
+      Efficiency = <input type="number" id="pt22c-input" step="0.1"> %
+      <button class="primary" onclick="checkPT('pt22c', 80)">Check</button>
+      <span id="pt22c-fb"></span>
+    </div>
+    <details><summary>Show work</summary><p>(240 ÷ 300) × 100% = <strong>80%</strong></p></details>
+  </div>
+
+  <div class="card">
+    <button class="primary" onclick="resetPracticeTest()">🔄 Reset Practice Test</button>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz">
+  <h2>🏆 Big Quiz</h2>
+  <div class="card">
+    <p>Test yourself on everything! Click an answer for each question.</p>
+    <div class="score-bar"><div class="score-fill" id="quiz-fill"></div></div>
+    <p id="quiz-score" style="font-weight:700;">Score: 0 / 0</p>
+    <div id="quiz-list"></div>
+    <button class="primary" onclick="resetQuiz()">Restart Quiz</button>
+  </div>
+</section>
+
+<!-- ============ LEVER LAB ============ -->
+<section id="lab">
+  <h2>⚖️ Lever Lab: Balance the Lever</h2>
+  <div class="card">
+    <p>In the practical part of the competition, you might have to <strong>balance a lever</strong>.
+    A lever balances when the <strong>torque</strong> on each side is equal:</p>
+    <div class="formula">Load × Load arm = Effort × Effort arm</div>
+    <p>Weight × distance from the fulcrum on the left = weight × distance on the right.</p>
+
+    <h3>🎮 Try the simulator</h3>
+    <p>Use the sliders below. The lever balances when both sides have the same <em>weight × distance</em>.</p>
+
+    <div class="lever-sim">
+      <div class="controls-row">
+        <div class="control-block">
+          <strong>Left side</strong><br>
+          Weight (kg): <input type="range" id="leftW" min="1" max="20" value="10" oninput="drawLever()"> <span id="leftWv">10</span><br>
+          Distance from fulcrum: <input type="range" id="leftD" min="1" max="10" value="6" oninput="drawLever()"> <span id="leftDv">6</span>
+        </div>
+        <div class="control-block">
+          <strong>Right side</strong><br>
+          Weight (kg): <input type="range" id="rightW" min="1" max="20" value="6" oninput="drawLever()"> <span id="rightWv">6</span><br>
+          Distance from fulcrum: <input type="range" id="rightD" min="1" max="10" value="10" oninput="drawLever()"> <span id="rightDv">10</span>
+        </div>
+      </div>
+      <svg id="leverSvg" viewBox="0 0 600 220" style="width:100%; background:#ffffff; border-radius:8px;"></svg>
+      <div id="leverStatus" class="balance-status">—</div>
+      <p class="small">🎯 Goal: make Left weight × Left distance EQUAL to Right weight × Right distance.</p>
+    </div>
+
+    <h3>📝 Practice Problems</h3>
+    <div class="card">
+      <p><strong>Problem 1:</strong> A 10 kg block sits 3 m from the fulcrum on the left.
+      Where do you put a 6 kg block on the right to balance it?</p>
+      <details><summary>Show answer</summary>
+        <p>10 × 3 = 30 on the left. Right needs 30 too. 30 ÷ 6 = <strong>5 meters</strong>.</p>
+      </details>
+    </div>
+    <div class="card">
+      <p><strong>Problem 2:</strong> A seesaw has a 40 kg child 2 m from the fulcrum.
+      How heavy must a child be sitting 4 m away on the other side?</p>
+      <details><summary>Show answer</summary>
+        <p>40 × 2 = 80. Other side: 80 ÷ 4 = <strong>20 kg</strong>.</p>
+      </details>
+    </div>
+    <div class="card">
+      <p><strong>Problem 3:</strong> Two 5 kg masses are placed at 3 m and 6 m on the right side of a fulcrum.
+      What single mass at 4 m on the left would balance them?</p>
+      <details><summary>Show answer</summary>
+        <p>Right side: (5 × 3) + (5 × 6) = 15 + 30 = 45. Left: 45 ÷ 4 = <strong>11.25 kg</strong>.</p>
+      </details>
+    </div>
+    <div class="card">
+      <p><strong>Problem 4:</strong> A lever has a load arm of 0.5 m and an effort arm of 2 m. What is the IMA?</p>
+      <details><summary>Show answer</summary>
+        <p>IMA = effort arm / load arm = 2 / 0.5 = <strong>4</strong>.</p>
+      </details>
+    </div>
+    <div class="card">
+      <p><strong>Problem 5:</strong> A 30 kg load sits 1 m from the fulcrum. The effort is applied 3 m from the fulcrum. How much effort force is needed (in kg-force) to lift it?</p>
+      <details><summary>Show answer</summary>
+        <p>Load × Load arm = Effort × Effort arm → 30 × 1 = E × 3 → E = <strong>10 kg-force</strong>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ============== NAVIGATION ============== */
+const sections = [
+  {id: "home", label: "🏠 Home"},
+  {id: "lever", label: "Lever"},
+  {id: "inclined", label: "Inclined Plane"},
+  {id: "pulley", label: "Pulley"},
+  {id: "wheel-axle", label: "Wheel & Axle"},
+  {id: "wedge", label: "Wedge"},
+  {id: "screw", label: "Screw"},
+  {id: "forces", label: "Forces & Newton"},
+  {id: "ma", label: "Mech. Advantage"},
+  {id: "identify", label: "🔍 Identify"},
+  {id: "match", label: "🎯 Match It"},
+  {id: "lever-det", label: "🕵️ Lever Detective"},
+  {id: "pulley-count", label: "🪢 Pulley Counter"},
+  {id: "newton", label: "🍎 Newton Scenarios"},
+  {id: "fbd", label: "📐 FBD Builder"},
+  {id: "practice-test", label: "📝 Practice Test"},
+  {id: "quiz", label: "🏆 Big Quiz"},
+  {id: "lab", label: "⚖️ Lever Lab"}
+];
+const nav = document.getElementById("nav");
+sections.forEach(s => {
+  const b = document.createElement("button");
+  b.textContent = s.label;
+  b.onclick = () => show(s.id);
+  b.dataset.target = s.id;
+  nav.appendChild(b);
+});
+function show(id) {
+  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("nav button").forEach(b => {
+    b.classList.toggle("active", b.dataset.target === id);
+  });
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+document.querySelector("nav button").classList.add("active");
+
+/* ============== HOME GRID ============== */
+const machineGrid = document.getElementById("machine-grid");
+const machines = [
+  {id: "lever", name: "Lever", emoji: "⚖️"},
+  {id: "inclined", name: "Inclined Plane", emoji: "🛝"},
+  {id: "pulley", name: "Pulley", emoji: "🚩"},
+  {id: "wheel-axle", name: "Wheel & Axle", emoji: "🚗"},
+  {id: "wedge", name: "Wedge", emoji: "🔪"},
+  {id: "screw", name: "Screw", emoji: "🔩"}
+];
+machines.forEach(m => {
+  const div = document.createElement("div");
+  div.className = "machine-card";
+  div.onclick = () => show(m.id);
+  div.innerHTML = `<div class="pic">${m.emoji}</div><h4>${m.name}</h4>`;
+  machineGrid.appendChild(div);
+});
+
+/* ============== CALCULATORS ============== */
+function calcLeverIMA() {
+  const ea = parseFloat(document.getElementById("lever-ea").value);
+  const la = parseFloat(document.getElementById("lever-la").value);
+  if (!la) { document.getElementById("lever-ima-result").textContent = "Load arm can't be 0!"; return; }
+  const ima = (ea/la).toFixed(2);
+  let msg = `IMA = ${ea} ÷ ${la} = ${ima}`;
+  if (ima > 1) msg += " (lever makes lifting easier!)";
+  else if (ima == 1) msg += " (no force change, just direction)";
+  else msg += " (more force needed, but more speed/distance)";
+  document.getElementById("lever-ima-result").textContent = msg;
+}
+function calcRampIMA() {
+  const l = parseFloat(document.getElementById("ramp-l").value);
+  const h = parseFloat(document.getElementById("ramp-h").value);
+  if (!h) { document.getElementById("ramp-ima-result").textContent = "Height can't be 0!"; return; }
+  document.getElementById("ramp-ima-result").textContent = `IMA = ${l} ÷ ${h} = ${(l/h).toFixed(2)}`;
+}
+function calcPulley() {
+  const n = parseInt(document.getElementById("pul-n").value);
+  document.getElementById("pul-result").textContent = `IMA = ${n}. You need 1/${n} of the force, but pull ${n}× the rope.`;
+}
+function calcWA() {
+  const R = parseFloat(document.getElementById("wa-R").value);
+  const r = parseFloat(document.getElementById("wa-r").value);
+  if (!r) { document.getElementById("wa-result").textContent = "Axle radius can't be 0!"; return; }
+  document.getElementById("wa-result").textContent = `IMA = ${R} ÷ ${r} = ${(R/r).toFixed(2)}`;
+}
+function calcWedge() {
+  const L = parseFloat(document.getElementById("wedge-L").value);
+  const W = parseFloat(document.getElementById("wedge-W").value);
+  if (!W) { document.getElementById("wedge-result").textContent = "Width can't be 0!"; return; }
+  document.getElementById("wedge-result").textContent = `IMA = ${L} ÷ ${W} = ${(L/W).toFixed(2)}`;
+}
+function calcEff() {
+  const a = parseFloat(document.getElementById("eff-ama").value);
+  const i = parseFloat(document.getElementById("eff-ima").value);
+  if (!i) { document.getElementById("eff-result").textContent = "IMA can't be 0!"; return; }
+  document.getElementById("eff-result").textContent = `Efficiency = (${a} ÷ ${i}) × 100% = ${((a/i)*100).toFixed(1)}%`;
+}
+
+/* ============== MINI QUIZ HELPER ============== */
+function buildMiniQuiz(containerId, questions) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = "";
+  questions.forEach((Q, qi) => {
+    const div = document.createElement("div");
+    div.className = "quiz-q";
+    div.innerHTML = `<p><strong>${qi+1}.</strong> ${Q.q}</p>`;
+    const opts = document.createElement("div");
+    opts.className = "quiz-options";
+    Q.a.forEach((c, i) => {
+      const o = document.createElement("div");
+      o.className = "quiz-option";
+      o.textContent = c;
+      o.onclick = () => {
+        const all = opts.querySelectorAll(".quiz-option");
+        if (all[0].classList.contains("disabled")) return;
+        all.forEach(x => x.classList.add("disabled"));
+        all[Q.ans].classList.add("correct");
+        if (i !== Q.ans) o.classList.add("wrong");
+        fb.classList.add("show");
+        if (i === Q.ans) {
+          fb.classList.add("good");
+          fb.textContent = "✓ Correct! " + (Q.why || "");
+        } else {
+          fb.classList.add("bad");
+          fb.textContent = "✗ The answer is: " + Q.a[Q.ans] + ". " + (Q.why || "");
+        }
+      };
+      opts.appendChild(o);
+    });
+    div.appendChild(opts);
+    const fb = document.createElement("div");
+    fb.className = "quiz-feedback";
+    div.appendChild(fb);
+    c.appendChild(div);
+  });
+}
+
+buildMiniQuiz("mini-lever", [
+  {q:"Which class of lever has the fulcrum in the middle?", a:["Class 1","Class 2","Class 3","None"], ans:0, why:"F in middle = Class 1 (like a seesaw)."},
+  {q:"A wheelbarrow has the load between the wheel (fulcrum) and the handles (effort). What class lever is it?", a:["Class 1","Class 2","Class 3"], ans:1, why:"F-L-E pattern means Class 2."},
+  {q:"A Class 3 lever has IMA that is...", a:["Always > 1","Always < 1","Always = 1"], ans:1, why:"In a Class 3, the effort arm is shorter than the load arm, so IMA < 1."},
+  {q:"A lever has effort arm 8 cm, load arm 2 cm. IMA = ?", a:["2","4","6","10"], ans:1, why:"8 ÷ 2 = 4."}
+]);
+
+buildMiniQuiz("mini-inclined", [
+  {q:"A ramp is 12 m long and 3 m tall. What is its IMA?", a:["3","4","9","12"], ans:1, why:"IMA = length ÷ height = 12 ÷ 3 = 4."},
+  {q:"Which is an example of an inclined plane?", a:["Doorknob","Stairs","Scissors","Flagpole"], ans:1, why:"Stairs are a series of small inclined planes."},
+  {q:"A longer, gentler ramp means...", a:["Less force needed but more distance","Same force, less distance","Same work, different look","More force, less distance"], ans:0, why:"Trade force for distance — total work is about the same."}
+]);
+
+buildMiniQuiz("mini-pulley", [
+  {q:"What's the IMA of a single fixed pulley?", a:["0","1","2","Depends"], ans:1, why:"A fixed pulley only changes direction; force is the same."},
+  {q:"A movable pulley has IMA of...", a:["1","2","3","0.5"], ans:1, why:"Two rope segments support the load."},
+  {q:"How do you find IMA of a compound pulley?", a:["Count pulleys","Count rope segments holding load","Multiply pulleys × rope","None"], ans:1, why:"Each supporting rope segment adds 1 to the IMA."}
+]);
+
+buildMiniQuiz("mini-wa", [
+  {q:"A wheel of radius 10 cm is on an axle of radius 2 cm. IMA = ?", a:["2","5","8","12"], ans:1, why:"10 ÷ 2 = 5."},
+  {q:"Which is an example of wheel and axle?", a:["Knife","Doorknob","Ramp","Pulley"], ans:1, why:"The knob (wheel) turns the inner rod (axle)."},
+  {q:"If you turn the axle to spin the wheel, you trade...", a:["Force for speed/distance","Speed for energy","Energy for force","Nothing"], ans:0, why:"Bigger wheel covers more distance per turn."}
+]);
+
+buildMiniQuiz("mini-wedge", [
+  {q:"A wedge is basically a...", a:["Stationary inclined plane","Moving inclined plane","Pulley with rope","Fixed lever"], ans:1, why:"Wedges move into things to split them."},
+  {q:"Which has a HIGHER IMA?", a:["Short thick wedge","Long thin wedge","Both same"], ans:1, why:"Length ÷ width is bigger when length is big and width is small."},
+  {q:"Which is NOT a wedge?", a:["Knife","Axe","Doorknob","Front teeth"], ans:2, why:"A doorknob is a wheel and axle."}
+]);
+
+buildMiniQuiz("mini-screw", [
+  {q:"A screw is a ___ wrapped around a cylinder.", a:["Pulley","Wedge","Lever","Inclined plane"], ans:3, why:"That spiral path IS the inclined plane!"},
+  {q:"Threads closer together (smaller pitch) means...", a:["Higher IMA, more turns","Lower IMA","Same IMA","No threads"], ans:0, why:"Less distance per turn → more turns → easier to drive."},
+  {q:"Which is NOT a screw?", a:["Jar lid","Light bulb base","Spiral staircase","Crowbar"], ans:3, why:"A crowbar is a Class 1 lever."}
+]);
+
+buildMiniQuiz("mini-forces", [
+  {q:"Forces are measured in...", a:["Meters","Newtons","Kilograms","Joules"], ans:1, why:"Named after Sir Isaac Newton!"},
+  {q:"Two forces of 8 N right and 3 N left act on a box. Net force is...", a:["11 N right","5 N right","5 N left","3 N right"], ans:1, why:"Subtract opposite directions: 8 - 3 = 5 N to the right."},
+  {q:"If the net force on an object is 0, the object...", a:["Always stops","Always speeds up","Stays still OR moves at constant speed","Spins"], ans:2, why:"Zero net force = equilibrium = no change in motion."},
+  {q:"Newton's 1st Law is the law of...", a:["Acceleration","Inertia","Action-Reaction","Gravity"], ans:1, why:"Objects keep doing what they're doing unless a force acts."},
+  {q:"F = m × a is Newton's...", a:["1st Law","2nd Law","3rd Law","Law of energy"], ans:1, why:"Force = mass × acceleration."},
+  {q:"A rocket pushes hot gas DOWN, the gas pushes the rocket UP. That's...", a:["1st Law","2nd Law","3rd Law"], ans:2, why:"Equal and opposite reaction = Newton's 3rd Law."}
+]);
+
+buildMiniQuiz("mini-ma", [
+  {q:"What does IMA stand for?", a:["Inner Mechanical Action","Ideal Mechanical Advantage","Inverted Motion Angle","Initial Machine Activity"], ans:1, why:"It's the no-friction theoretical MA."},
+  {q:"AMA in real life is...", a:["Greater than IMA","Equal to IMA","Less than IMA","Always 0"], ans:2, why:"Friction reduces real performance."},
+  {q:"Efficiency = ?", a:["IMA × AMA","AMA ÷ IMA × 100%","IMA + AMA","IMA ÷ AMA"], ans:1, why:"What fraction of input energy actually moves the load."},
+  {q:"If IMA = 10 and AMA = 8, efficiency = ?", a:["20%","80%","100%","2%"], ans:1, why:"(8/10) × 100% = 80%."}
+]);
+
+/* ============== IDENTIFY PRACTICE ============== */
+const identifyItems = [
+  {emoji:"🛝", name:"Seesaw", choices:["Lever (Class 1)","Inclined plane","Pulley","Wheel and axle"], answer:0,
+   why:"The fulcrum is in the middle, riders on each side. That's a Class 1 lever."},
+  {emoji:"🚜", name:"Wheelbarrow", choices:["Lever (Class 1)","Lever (Class 2)","Lever (Class 3)","Wedge"], answer:1,
+   why:"Wheel = fulcrum, dirt = load in middle, handles = effort. F-L-E = Class 2."},
+  {emoji:"🤏", name:"Tweezers", choices:["Lever (Class 1)","Lever (Class 2)","Lever (Class 3)","Pulley"], answer:2,
+   why:"Hinge = fulcrum, fingers squeeze in middle (effort), tips grab object. F-E-L = Class 3."},
+  {emoji:"🚚", name:"Truck loading ramp", choices:["Wedge","Inclined plane","Screw","Wheel and axle"], answer:1,
+   why:"A flat slanted surface — inclined plane."},
+  {emoji:"🚪", name:"Doorknob", choices:["Lever","Pulley","Wheel and axle","Screw"], answer:2,
+   why:"Knob is a wheel attached to a small axle that pulls the latch."},
+  {emoji:"🔪", name:"Knife", choices:["Wedge","Screw","Lever","Inclined plane"], answer:0,
+   why:"Thin blade pushes food apart — a moving inclined plane = wedge."},
+  {emoji:"💡", name:"Light bulb base", choices:["Wedge","Pulley","Screw","Lever"], answer:2,
+   why:"Spiral threads twist it into the socket — that's a screw."},
+  {emoji:"🚩", name:"Flagpole rope", choices:["Pulley","Lever","Wheel and axle","Wedge"], answer:0,
+   why:"Pulley at the top changes direction: pull down, flag goes up."},
+  {emoji:"🪜", name:"Stairs", choices:["Wedge","Inclined plane","Screw","Lever"], answer:1,
+   why:"Stairs are a series of inclined planes — rise gradually."},
+  {emoji:"🍾", name:"Bottle opener", choices:["Lever (Class 1)","Lever (Class 2)","Lever (Class 3)","Wedge only"], answer:1,
+   why:"You lift handle (effort), cap edge is load in middle, lip = fulcrum. F-L-E = Class 2."},
+  {emoji:"🪓", name:"Axe", choices:["Lever only","Wedge only","Wedge + Lever","Screw"], answer:2,
+   why:"Blade = wedge (splits wood). Handle = lever (multiplies swing). Two simple machines!"},
+  {emoji:"🌀", name:"Spiral staircase", choices:["Inclined plane","Wedge","Screw","Wheel and axle"], answer:2,
+   why:"An inclined plane wrapped around a center — that's a screw."},
+  {emoji:"🛞", name:"Steering wheel", choices:["Wheel and axle","Pulley","Lever","Screw"], answer:0,
+   why:"Wheel rigidly attached to a column (axle)."},
+  {emoji:"🎣", name:"Fishing rod", choices:["Class 1 lever","Class 2 lever","Class 3 lever","Pulley"], answer:2,
+   why:"Bottom hand = fulcrum, top hand = effort (middle), fish = load. F-E-L = Class 3."},
+  {emoji:"🪚", name:"Crowbar pulling a nail", choices:["Class 1 lever","Class 2 lever","Class 3 lever","Wedge"], answer:0,
+   why:"Bend = fulcrum (middle), you push long end (effort), short end pulls nail. L-F-E = Class 1."},
+  {emoji:"✂️", name:"Scissors", choices:["Lever only","Wedge only","Two levers + two wedges","Screw"], answer:2,
+   why:"Each blade is a Class 1 lever; each cutting edge is a wedge. Compound machine!"},
+  {emoji:"🪛", name:"Drill bit", choices:["Wedge","Screw","Wheel and axle","Pulley"], answer:1,
+   why:"Spiral threads pull the bit into wood — that's a screw."},
+  {emoji:"🚰", name:"Faucet handle", choices:["Lever","Wheel and axle","Pulley","Screw"], answer:1,
+   why:"Round handle = wheel, valve stem = axle."},
+  {emoji:"⚾", name:"Baseball bat", choices:["Class 1","Class 2","Class 3"], answer:2,
+   why:"Bottom hand = fulcrum, top hand = effort, ball at tip = load. Class 3."},
+  {emoji:"🥢", name:"Chopsticks", choices:["Class 1","Class 2","Class 3"], answer:2,
+   why:"Pinch point at top = fulcrum, fingers apply effort in middle, food = load at tip. Class 3."},
+  {emoji:"🥜", name:"Nutcracker", choices:["Class 1","Class 2","Class 3"], answer:1,
+   why:"Hinge = fulcrum, nut = load in middle, your hand = effort. F-L-E = Class 2."}
+];
+let idIndex = 0, idScore = 0, idDone = 0;
+function renderIdentify() {
+  const box = document.getElementById("identify-box");
+  const item = identifyItems[idIndex];
+  box.innerHTML = `
+    <div class="pic-tile">
+      <div class="emoji">${item.emoji}</div>
+      <div class="name">${item.name}</div>
+    </div>
+    <p class="small" style="text-align:center;">Question ${idIndex+1} of ${identifyItems.length}</p>
+    <p style="text-align:center;">Which simple machine is this?</p>
+    <div class="quiz-options" id="id-opts"></div>
+    <div id="id-feedback" class="quiz-feedback"></div>
+  `;
+  const opts = document.getElementById("id-opts");
+  item.choices.forEach((c, i) => {
+    const d = document.createElement("div");
+    d.className = "quiz-option";
+    d.textContent = c;
+    d.onclick = () => answerIdentify(i, d);
+    opts.appendChild(d);
+  });
+  document.getElementById("identify-score").textContent = `Score: ${idScore} / ${idDone}`;
+}
+function answerIdentify(i, el) {
+  const item = identifyItems[idIndex];
+  const opts = document.querySelectorAll("#id-opts .quiz-option");
+  opts.forEach(o => o.classList.add("disabled"));
+  opts[item.answer].classList.add("correct");
+  const fb = document.getElementById("id-feedback");
+  fb.classList.add("show");
+  idDone++;
+  if (i === item.answer) {
+    idScore++;
+    fb.classList.add("good");
+    fb.innerHTML = `✓ Correct! ${item.why}`;
+  } else {
+    el.classList.add("wrong");
+    fb.classList.add("bad");
+    fb.innerHTML = `✗ Not quite. ${item.why}`;
+  }
+  document.getElementById("identify-score").textContent = `Score: ${idScore} / ${idDone}`;
+}
+function nextIdentify() { idIndex = (idIndex + 1) % identifyItems.length; renderIdentify(); }
+function prevIdentify() { idIndex = (idIndex - 1 + identifyItems.length) % identifyItems.length; renderIdentify(); }
+function resetIdentify() { idIndex = 0; idScore = 0; idDone = 0; renderIdentify(); }
+renderIdentify();
+
+/* ============== MATCH IT (Drag & Drop) ============== */
+const matchPairs = [
+  {item: "🛝 Seesaw", machine: "Lever (Class 1)"},
+  {item: "♿ Wheelchair ramp", machine: "Inclined plane"},
+  {item: "🚩 Flagpole", machine: "Pulley"},
+  {item: "🚪 Doorknob", machine: "Wheel and axle"},
+  {item: "🔪 Kitchen knife", machine: "Wedge"},
+  {item: "💡 Light bulb base", machine: "Screw"},
+  {item: "🛒 Wheelbarrow", machine: "Lever (Class 2)"},
+  {item: "🎣 Fishing rod", machine: "Lever (Class 3)"}
+];
+const machineList = [
+  "Lever (Class 1)", "Lever (Class 2)", "Lever (Class 3)",
+  "Inclined plane", "Pulley", "Wheel and axle", "Wedge", "Screw"
+];
+
+let matchPlaced = {}; // machine name -> item index
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderMatch() {
+  const items = document.getElementById("dnd-items");
+  const targets = document.getElementById("dnd-targets");
+  items.innerHTML = "";
+  targets.innerHTML = "";
+  matchPlaced = {};
+  const shuffledItems = shuffle([...Array(matchPairs.length).keys()]);
+  shuffledItems.forEach(idx => {
+    const d = document.createElement("div");
+    d.className = "dnd-item";
+    d.draggable = true;
+    d.textContent = matchPairs[idx].item;
+    d.dataset.idx = idx;
+    d.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", idx);
+      d.classList.add("dragging");
+    });
+    d.addEventListener("dragend", () => d.classList.remove("dragging"));
+    // touch support — basic
+    items.appendChild(d);
+  });
+  const shuffledTargets = shuffle([...machineList]);
+  shuffledTargets.forEach(m => {
+    const t = document.createElement("div");
+    t.className = "dnd-target";
+    t.dataset.machine = m;
+    t.innerHTML = `<div class="label">${m}</div>`;
+    t.addEventListener("dragover", e => { e.preventDefault(); t.classList.add("over"); });
+    t.addEventListener("dragleave", () => t.classList.remove("over"));
+    t.addEventListener("drop", e => {
+      e.preventDefault();
+      t.classList.remove("over");
+      const idx = parseInt(e.dataTransfer.getData("text/plain"));
+      const draggedEl = document.querySelector(`.dnd-item[data-idx="${idx}"]`);
+      if (!draggedEl) return;
+      // Remove from old target if any
+      Object.keys(matchPlaced).forEach(k => {
+        if (matchPlaced[k] === idx) delete matchPlaced[k];
+      });
+      // If target already has an item, swap back
+      if (matchPlaced[m] != null) {
+        const oldIdx = matchPlaced[m];
+        const oldEl = document.querySelector(`.dnd-item[data-idx="${oldIdx}"]`);
+        if (oldEl) document.getElementById("dnd-items").appendChild(oldEl);
+      }
+      t.appendChild(draggedEl);
+      matchPlaced[m] = idx;
+    });
+    targets.appendChild(t);
+  });
+  document.getElementById("match-result").textContent = "";
+}
+
+function checkMatch() {
+  let right = 0, total = matchPairs.length;
+  matchPairs.forEach((p, idx) => {
+    const placedMachine = Object.keys(matchPlaced).find(k => matchPlaced[k] === idx);
+    const el = document.querySelector(`.dnd-item[data-idx="${idx}"]`);
+    if (!el) return;
+    el.classList.remove("correct", "wrong");
+    el.classList.add("placed");
+    if (placedMachine === p.machine) {
+      el.classList.add("correct");
+      right++;
+    } else if (placedMachine) {
+      el.classList.add("wrong");
+    }
+  });
+  const r = document.getElementById("match-result");
+  r.textContent = `Score: ${right} / ${total}` + (right === total ? " 🎉 Perfect!" : "");
+}
+function resetMatch() { renderMatch(); }
+renderMatch();
+
+/* ============== LEVER DETECTIVE ============== */
+const leverPuzzles = [
+  {svg: makeLeverSVG(50, 100, 150), label: "F is in the middle (red dot), load on left (green), effort on right (purple).", choices:["Class 1","Class 2","Class 3"], ans:0, why:"L-F-E pattern → Class 1."},
+  {svg: makeLeverSVG(30, 100, 170, "FLE"), label: "F is on the far left, load in the middle, effort on the right.", choices:["Class 1","Class 2","Class 3"], ans:1, why:"F-L-E pattern → Class 2."},
+  {svg: makeLeverSVG(30, 100, 170, "FEL"), label: "F on the far left, effort in the middle, load on the right.", choices:["Class 1","Class 2","Class 3"], ans:2, why:"F-E-L pattern → Class 3."},
+  {svg: makeLeverSVG(30, 170, 100, "FLE"), label: "Looks like a wheelbarrow setup.", choices:["Class 1","Class 2","Class 3"], ans:1, why:"Wheel=F at left, load in middle, lift handle = effort right side. Class 2."},
+  {svg: makeLeverSVG(80, 100, 160, "LFE"), label: "Crowbar lifting a stone.", choices:["Class 1","Class 2","Class 3"], ans:0, why:"Stone on left, bend (fulcrum) in middle, your push on the long end. Class 1."},
+  {svg: makeLeverSVG(20, 100, 180, "FEL"), label: "Broom — hand grips the top (still), other hand pushes in middle, brush at bottom.", choices:["Class 1","Class 2","Class 3"], ans:2, why:"Top hand = fulcrum, middle hand = effort, brush = load. Class 3."}
+];
+
+// helper to draw a lever with positions (px coords on viewBox 0..200)
+function makeLeverSVG(fx, mx, ex, layout="LFE") {
+  // layout describes which letter is at fx, mx, ex
+  // default: L F E (Class 1)
+  const positions = {};
+  const arr = layout.split("");
+  [fx, mx, ex].forEach((x, i) => positions[arr[i]] = x);
+  const F = positions.F, L = positions.L, E = positions.E;
+  return `
+    <svg viewBox="0 0 200 130">
+      <line x1="10" y1="60" x2="190" y2="60" stroke="#1e293b" stroke-width="6"/>
+      <polygon points="${F-8},70 ${F+8},70 ${F},95" fill="#7c3aed"/>
+      <text x="${F}" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#7c3aed">F</text>
+      <rect x="${L-10}" y="42" width="20" height="20" fill="#16a34a"/>
+      <text x="${L}" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">L</text>
+      <path d="M${E} 25 v25" stroke="#dc2626" stroke-width="3" marker-end="url(#arrLD)"/>
+      <text x="${E}" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">E</text>
+      <defs>
+        <marker id="arrLD" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/>
+        </marker>
+      </defs>
+    </svg>
+  `;
+}
+
+let ldIndex = 0, ldScore = 0, ldDone = 0;
+function renderLD() {
+  const box = document.getElementById("ld-box");
+  const p = leverPuzzles[ldIndex];
+  box.innerHTML = `
+    <div style="text-align:center; background:white; padding:12px; border-radius:10px; border:2px solid var(--border);">
+      ${p.svg}
+      <p class="small">${p.label}</p>
+    </div>
+    <p class="small" style="text-align:center;">Question ${ldIndex+1} of ${leverPuzzles.length}</p>
+    <p style="text-align:center;"><strong>Which class of lever is this?</strong></p>
+    <div class="quiz-options" id="ld-opts"></div>
+    <div id="ld-feedback" class="quiz-feedback"></div>
+  `;
+  const opts = document.getElementById("ld-opts");
+  p.choices.forEach((c, i) => {
+    const d = document.createElement("div");
+    d.className = "quiz-option";
+    d.textContent = c;
+    d.onclick = () => answerLD(i, d);
+    opts.appendChild(d);
+  });
+  document.getElementById("ld-score").textContent = `Score: ${ldScore} / ${ldDone}`;
+}
+function answerLD(i, el) {
+  const p = leverPuzzles[ldIndex];
+  const opts = document.querySelectorAll("#ld-opts .quiz-option");
+  opts.forEach(o => o.classList.add("disabled"));
+  opts[p.ans].classList.add("correct");
+  const fb = document.getElementById("ld-feedback");
+  fb.classList.add("show");
+  ldDone++;
+  if (i === p.ans) {
+    ldScore++;
+    fb.classList.add("good");
+    fb.innerHTML = `✓ Correct! ${p.why}`;
+  } else {
+    el.classList.add("wrong");
+    fb.classList.add("bad");
+    fb.innerHTML = `✗ ${p.why}`;
+  }
+  document.getElementById("ld-score").textContent = `Score: ${ldScore} / ${ldDone}`;
+}
+function nextLD() { ldIndex = (ldIndex + 1) % leverPuzzles.length; renderLD(); }
+function prevLD() { ldIndex = (ldIndex - 1 + leverPuzzles.length) % leverPuzzles.length; renderLD(); }
+function resetLD() { ldIndex = 0; ldScore = 0; ldDone = 0; renderLD(); }
+renderLD();
+
+/* ============== PULLEY COUNTER ============== */
+const pulleyPuzzles = [
+  {
+    name: "Single Fixed Pulley",
+    svg: `
+      <svg viewBox="0 0 200 250" style="width:160px;">
+        <rect x="60" y="0" width="80" height="10" fill="#1e293b"/>
+        <circle cx="100" cy="40" r="20" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <line x1="100" y1="10" x2="100" y2="20" stroke="#1e293b" stroke-width="2"/>
+        <!-- left rope (supports load) -->
+        <line x1="82" y1="40" x2="82" y2="200" stroke="#dc2626" stroke-width="3"/>
+        <!-- right rope (pulling) -->
+        <line x1="118" y1="40" x2="118" y2="180" stroke="#475569" stroke-width="3"/>
+        <rect x="65" y="200" width="34" height="20" fill="#16a34a"/>
+        <text x="82" y="232" text-anchor="middle" font-size="11">Load</text>
+      </svg>`,
+    correct: 1,
+    why: "Only 1 rope segment goes up from the load to the fixed pulley. IMA = 1."
+  },
+  {
+    name: "Single Movable Pulley",
+    svg: `
+      <svg viewBox="0 0 200 250" style="width:160px;">
+        <rect x="60" y="0" width="80" height="10" fill="#1e293b"/>
+        <circle cx="100" cy="120" r="20" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <line x1="82" y1="120" x2="82" y2="10" stroke="#dc2626" stroke-width="3"/>
+        <line x1="118" y1="120" x2="118" y2="10" stroke="#dc2626" stroke-width="3"/>
+        <line x1="100" y1="140" x2="100" y2="160" stroke="#1e293b" stroke-width="2"/>
+        <rect x="80" y="160" width="40" height="22" fill="#16a34a"/>
+        <text x="100" y="195" text-anchor="middle" font-size="11">Load</text>
+      </svg>`,
+    correct: 2,
+    why: "Two red rope segments go up from the movable pulley. IMA = 2."
+  },
+  {
+    name: "Compound: 1 fixed + 1 movable",
+    svg: `
+      <svg viewBox="0 0 220 280" style="width:170px;">
+        <rect x="50" y="0" width="120" height="10" fill="#1e293b"/>
+        <circle cx="80" cy="40" r="16" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="140" cy="150" r="18" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <!-- two ropes from movable pulley going up -->
+        <line x1="124" y1="150" x2="124" y2="10" stroke="#dc2626" stroke-width="3"/>
+        <line x1="156" y1="150" x2="80" y2="56" stroke="#dc2626" stroke-width="3"/>
+        <!-- pull rope -->
+        <line x1="64" y1="40" x2="64" y2="220" stroke="#475569" stroke-width="3"/>
+        <line x1="140" y1="168" x2="140" y2="200" stroke="#1e293b" stroke-width="2"/>
+        <rect x="120" y="200" width="40" height="24" fill="#16a34a"/>
+        <text x="140" y="240" text-anchor="middle" font-size="11">Load</text>
+      </svg>`,
+    correct: 2,
+    why: "Two red rope segments support the movable pulley (and the load). IMA = 2."
+  },
+  {
+    name: "Compound: block & tackle (3 supports)",
+    svg: `
+      <svg viewBox="0 0 220 280" style="width:170px;">
+        <rect x="40" y="0" width="140" height="10" fill="#1e293b"/>
+        <circle cx="70" cy="40" r="15" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="150" cy="40" r="15" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="110" cy="160" r="18" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <!-- rope: anchored top left, down around movable, up to fixed, down to hand -->
+        <line x1="55" y1="10" x2="55" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line x1="85" y1="40" x2="93" y2="160" stroke="#dc2626" stroke-width="3"/>
+        <line x1="127" y1="160" x2="135" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line x1="165" y1="40" x2="165" y2="230" stroke="#475569" stroke-width="3"/>
+        <line x1="110" y1="178" x2="110" y2="200" stroke="#1e293b" stroke-width="2"/>
+        <rect x="90" y="200" width="40" height="24" fill="#16a34a"/>
+        <text x="110" y="240" text-anchor="middle" font-size="11">Load</text>
+      </svg>`,
+    correct: 3,
+    why: "Three red rope segments support the movable pulley. IMA = 3."
+  },
+  {
+    name: "Compound: 4 supporting ropes",
+    svg: `
+      <svg viewBox="0 0 240 280" style="width:180px;">
+        <rect x="30" y="0" width="180" height="10" fill="#1e293b"/>
+        <circle cx="60" cy="40" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="180" cy="40" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="90" cy="160" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="150" cy="160" r="14" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+        <!-- 4 supporting ropes (red) -->
+        <line x1="76" y1="160" x2="46" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line x1="104" y1="160" x2="74" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line x1="136" y1="160" x2="166" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line x1="164" y1="160" x2="194" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <!-- bar holding the two movable pulleys + load -->
+        <line x1="90" y1="174" x2="150" y2="174" stroke="#1e293b" stroke-width="2"/>
+        <rect x="100" y="178" width="40" height="22" fill="#16a34a"/>
+        <text x="120" y="218" text-anchor="middle" font-size="11">Load</text>
+      </svg>`,
+    correct: 4,
+    why: "Four red rope segments support the load. IMA = 4."
+  }
+];
+let pcIndex = 0, pcScore = 0, pcDone = 0;
+function renderPC() {
+  const box = document.getElementById("pc-box");
+  const p = pulleyPuzzles[pcIndex];
+  box.innerHTML = `
+    <div style="text-align:center; background:white; padding:12px; border-radius:10px; border:2px solid var(--border);">
+      <div>${p.svg}</div>
+      <p class="small"><strong>${p.name}</strong></p>
+    </div>
+    <p class="small" style="text-align:center;">Question ${pcIndex+1} of ${pulleyPuzzles.length}</p>
+    <p style="text-align:center;"><strong>Count the rope segments supporting the load (= the IMA)</strong></p>
+    <div class="quiz-options" id="pc-opts"></div>
+    <div id="pc-feedback" class="quiz-feedback"></div>
+  `;
+  const opts = document.getElementById("pc-opts");
+  [1,2,3,4,5].forEach(n => {
+    const d = document.createElement("div");
+    d.className = "quiz-option";
+    d.textContent = `${n}`;
+    d.onclick = () => answerPC(n, d);
+    opts.appendChild(d);
+  });
+  document.getElementById("pc-score").textContent = `Score: ${pcScore} / ${pcDone}`;
+}
+function answerPC(n, el) {
+  const p = pulleyPuzzles[pcIndex];
+  const opts = document.querySelectorAll("#pc-opts .quiz-option");
+  opts.forEach(o => o.classList.add("disabled"));
+  opts[p.correct - 1].classList.add("correct");
+  const fb = document.getElementById("pc-feedback");
+  fb.classList.add("show");
+  pcDone++;
+  if (n === p.correct) {
+    pcScore++;
+    fb.classList.add("good");
+    fb.innerHTML = `✓ Correct! ${p.why}`;
+  } else {
+    el.classList.add("wrong");
+    fb.classList.add("bad");
+    fb.innerHTML = `✗ ${p.why}`;
+  }
+  document.getElementById("pc-score").textContent = `Score: ${pcScore} / ${pcDone}`;
+}
+function nextPC() { pcIndex = (pcIndex + 1) % pulleyPuzzles.length; renderPC(); }
+function prevPC() { pcIndex = (pcIndex - 1 + pulleyPuzzles.length) % pulleyPuzzles.length; renderPC(); }
+function resetPC() { pcIndex = 0; pcScore = 0; pcDone = 0; renderPC(); }
+renderPC();
+
+/* ============== NEWTON SCENARIOS ============== */
+const newtonScenarios = [
+  {emoji:"🚗", text: "A car suddenly stops, and the passengers feel thrown forward in their seats.",
+    ans:0, why:"The passengers were moving with the car. When the car stops, their bodies want to keep moving in a straight line. That's Newton's 1st Law (inertia)."},
+  {emoji:"🚀", text: "A rocket pushes hot gas down out of its engine, and the rocket goes UP.",
+    ans:2, why:"Action: gas pushed down. Reaction: gas pushes rocket up. Newton's 3rd Law!"},
+  {emoji:"🛒", text: "Pushing an empty shopping cart speeds it up faster than pushing a full one with the same force.",
+    ans:1, why:"More mass = less acceleration for the same force. F = m × a — Newton's 2nd Law."},
+  {emoji:"⛸️", text: "An ice skater glides at a steady speed across smooth ice with no friction.",
+    ans:0, why:"With no force acting, the skater keeps moving in a straight line. Newton's 1st Law."},
+  {emoji:"🏊", text: "A swimmer pushes water backward with their hands, and they move forward.",
+    ans:2, why:"Action: swimmer pushes water back. Reaction: water pushes swimmer forward. Newton's 3rd Law."},
+  {emoji:"🏏", text: "You hit a baseball harder, and it accelerates more.",
+    ans:1, why:"More force on the same mass = more acceleration. Newton's 2nd Law."},
+  {emoji:"📚", text: "A book sits on a table. The table pushes UP on the book with the same force gravity pulls it DOWN.",
+    ans:2, why:"Two equal-and-opposite forces. Newton's 3rd Law."},
+  {emoji:"🪂", text: "A skydiver in freefall keeps accelerating until air resistance balances gravity. Then they fall at constant speed.",
+    ans:0, why:"Once net force is zero, the skydiver moves at constant velocity. Newton's 1st Law."},
+];
+let nwIndex = 0, nwScore = 0, nwDone = 0;
+function renderNW() {
+  const box = document.getElementById("nw-box");
+  const s = newtonScenarios[nwIndex];
+  box.innerHTML = `
+    <div class="scenario-card">
+      <div style="text-align:center; font-size:48px;">${s.emoji}</div>
+      <p style="font-size:16px; text-align:center;">${s.text}</p>
+    </div>
+    <p class="small" style="text-align:center;">Question ${nwIndex+1} of ${newtonScenarios.length}</p>
+    <div class="quiz-options" id="nw-opts"></div>
+    <div id="nw-feedback" class="quiz-feedback"></div>
+  `;
+  const opts = document.getElementById("nw-opts");
+  ["1st Law (Inertia)", "2nd Law (F = m × a)", "3rd Law (Action-Reaction)"].forEach((c, i) => {
+    const d = document.createElement("div");
+    d.className = "quiz-option";
+    d.textContent = c;
+    d.onclick = () => answerNW(i, d);
+    opts.appendChild(d);
+  });
+  document.getElementById("nw-score").textContent = `Score: ${nwScore} / ${nwDone}`;
+}
+function answerNW(i, el) {
+  const s = newtonScenarios[nwIndex];
+  const opts = document.querySelectorAll("#nw-opts .quiz-option");
+  opts.forEach(o => o.classList.add("disabled"));
+  opts[s.ans].classList.add("correct");
+  const fb = document.getElementById("nw-feedback");
+  fb.classList.add("show");
+  nwDone++;
+  if (i === s.ans) {
+    nwScore++;
+    fb.classList.add("good");
+    fb.innerHTML = `✓ Correct! ${s.why}`;
+  } else {
+    el.classList.add("wrong");
+    fb.classList.add("bad");
+    fb.innerHTML = `✗ ${s.why}`;
+  }
+  document.getElementById("nw-score").textContent = `Score: ${nwScore} / ${nwDone}`;
+}
+function nextNW() { nwIndex = (nwIndex + 1) % newtonScenarios.length; renderNW(); }
+function prevNW() { nwIndex = (nwIndex - 1 + newtonScenarios.length) % newtonScenarios.length; renderNW(); }
+function resetNW() { nwIndex = 0; nwScore = 0; nwDone = 0; renderNW(); }
+renderNW();
+
+/* ============== FREE BODY DIAGRAM BUILDER ============== */
+const fbdScenarios = [
+  {name:"Book on table", emoji:"📕", correct: ["gravity","normal"]},
+  {name:"Box pushed across floor (with friction)", emoji:"📦", correct: ["gravity","normal","applied-right","friction-left"]},
+  {name:"Object hanging from rope (still)", emoji:"🪁", correct: ["gravity","tension"]},
+  {name:"Apple falling (no air resistance)", emoji:"🍎", correct: ["gravity"]},
+  {name:"Box on inclined ramp (with friction, still)", emoji:"📦", correct: ["gravity","normal","friction-left"]}
+];
+let currentFBD = 0;
+let fbdForces = [];
+
+function loadFBD() {
+  currentFBD = parseInt(document.getElementById("fbd-scenario").value);
+  fbdForces = [];
+  drawFBD();
+  document.getElementById("fbd-result").textContent = "";
+}
+function addFBD(type) {
+  if (!fbdForces.includes(type)) fbdForces.push(type);
+  drawFBD();
+}
+function clearFBD() {
+  fbdForces = [];
+  drawFBD();
+  document.getElementById("fbd-result").textContent = "";
+}
+function drawFBD() {
+  const s = fbdScenarios[currentFBD];
+  const stage = document.getElementById("fbd-stage");
+  const cx = 50, cy = 50; // percent
+  let svg = `<svg viewBox="0 0 400 320" style="width:100%; height:100%;">`;
+  // object
+  svg += `<rect x="170" y="135" width="60" height="50" fill="#fef3c7" stroke="#1e293b" stroke-width="2"/>`;
+  svg += `<text x="200" y="165" text-anchor="middle" font-size="28">${s.emoji}</text>`;
+  // ground or table for relevant scenarios
+  if (currentFBD === 0 || currentFBD === 1) {
+    svg += `<line x1="50" y1="185" x2="350" y2="185" stroke="#475569" stroke-width="3"/>`;
+  }
+  if (currentFBD === 4) {
+    // ramp
+    svg += `<polygon points="40,260 360,260 360,140" fill="#e2e8f0" stroke="#1e293b" stroke-width="2" opacity="0.5"/>`;
+  }
+  // ceiling for hanging
+  if (currentFBD === 2) {
+    svg += `<line x1="50" y1="40" x2="350" y2="40" stroke="#475569" stroke-width="3"/>`;
+    svg += `<line x1="200" y1="40" x2="200" y2="135" stroke="#475569" stroke-width="2" stroke-dasharray="4"/>`;
+  }
+  // forces
+  fbdForces.forEach(f => {
+    if (f === "gravity") {
+      svg += `<line x1="200" y1="185" x2="200" y2="260" stroke="#dc2626" stroke-width="4" marker-end="url(#arrFBD)"/>`;
+      svg += `<text x="208" y="250" font-size="13" font-weight="700" fill="#dc2626">Gravity</text>`;
+    }
+    if (f === "normal") {
+      svg += `<line x1="200" y1="135" x2="200" y2="60" stroke="#16a34a" stroke-width="4" marker-end="url(#arrFBD2)"/>`;
+      svg += `<text x="208" y="70" font-size="13" font-weight="700" fill="#16a34a">Normal</text>`;
+    }
+    if (f === "applied-right") {
+      svg += `<line x1="230" y1="160" x2="320" y2="160" stroke="#2563eb" stroke-width="4" marker-end="url(#arrFBD3)"/>`;
+      svg += `<text x="245" y="153" font-size="13" font-weight="700" fill="#2563eb">Applied</text>`;
+    }
+    if (f === "friction-left") {
+      svg += `<line x1="170" y1="160" x2="80" y2="160" stroke="#7c3aed" stroke-width="4" marker-end="url(#arrFBD4)"/>`;
+      svg += `<text x="95" y="153" font-size="13" font-weight="700" fill="#7c3aed">Friction</text>`;
+    }
+    if (f === "tension") {
+      svg += `<line x1="200" y1="135" x2="200" y2="60" stroke="#0891b2" stroke-width="4" marker-end="url(#arrFBD5)"/>`;
+      svg += `<text x="208" y="80" font-size="13" font-weight="700" fill="#0891b2">Tension</text>`;
+    }
+  });
+  svg += `<defs>
+    <marker id="arrFBD" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/></marker>
+    <marker id="arrFBD2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker>
+    <marker id="arrFBD3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <marker id="arrFBD4" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#7c3aed"/></marker>
+    <marker id="arrFBD5" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0891b2"/></marker>
+  </defs>`;
+  svg += `</svg>`;
+  stage.innerHTML = svg;
+}
+function checkFBD() {
+  const s = fbdScenarios[currentFBD];
+  const need = new Set(s.correct);
+  const have = new Set(fbdForces);
+  const missing = [...need].filter(x => !have.has(x));
+  const extra = [...have].filter(x => !need.has(x));
+  const r = document.getElementById("fbd-result");
+  if (missing.length === 0 && extra.length === 0) {
+    r.style.color = "var(--good)";
+    r.textContent = "✓ Perfect! All the right forces, none extra.";
+  } else {
+    let msg = "Almost! ";
+    if (missing.length) msg += "Missing: " + missing.join(", ") + ". ";
+    if (extra.length) msg += "Too many: " + extra.join(", ") + ".";
+    r.style.color = "var(--bad)";
+    r.textContent = msg;
+  }
+}
+loadFBD();
+
+/* ============== PRACTICE TEST ============== */
+const practiceTestMC = [
+  {id:"pt1", choices:["Two inclined planes","Two first-class levers","A wheel and axle with a pulley","Two screws"], ans:1,
+    why:"Each blade pivots around the center pin (fulcrum in the middle = Class 1 lever). And the cutting edges act as wedges too — but the answer focuses on the lever pair."},
+  {id:"pt2", choices:["Class 1 lever","Class 2 lever","Class 3 lever","Wheel and axle"], ans:1,
+    why:"Wheel = fulcrum at the bottom-left, Load box in the middle, Effort lifts the right end. F-L-E pattern = Class 2."},
+  {id:"pt3", choices:["Wedge","Screw","Bicycle","Inclined plane"], ans:2,
+    why:"A bicycle is a COMPOUND machine made of many simple machines (wheels, levers, gears). The other three are themselves simple machines."},
+  {id:"pt4", choices:["A lever wrapped around a cylinder","A wheel and axle","A pulley","An inclined plane wrapped around a cylinder"], ans:3,
+    why:"A screw IS an inclined plane wrapped around a cylinder — the threads form a spiral ramp."},
+  {id:"pt5", choices:["Newton's 1st Law (Inertia)","Newton's 2nd Law (F = ma)","Newton's 3rd Law (Action-Reaction)","Law of Conservation of Energy"], ans:0,
+    why:"An object at rest stays at rest unless a force acts on it. That's Newton's 1st Law (inertia)."},
+  {id:"pt6", choices:["Real machines are always poorly designed.","Friction causes some energy to be lost as heat.","Real machines violate conservation of energy.","The mass of the machine adds to the load."], ans:1,
+    why:"Friction inside the machine wastes some of your effort as heat — so the real (actual) MA is less than the ideal MA."},
+  {id:"pt7", choices:["A fixed pulley","A movable pulley","A wheel and axle","A Class 3 lever"], ans:0,
+    why:"The pulley is attached to the ceiling and doesn't move. Pull down on the rope → load goes up. That's a fixed pulley (IMA = 1)."},
+  {id:"pt8", choices:["Net force is in the direction of motion.","Net force is opposite to motion.","Net force is zero.","Net force equals the student's push."], ans:2,
+    why:"Constant speed = no acceleration → net force = 0 (Newton's 1st Law). The push exactly cancels friction."}
+];
+
+let ptScore = 0, ptDone = 0, ptTotal = 0;
+
+function setupPracticeMC() {
+  practiceTestMC.forEach(Q => {
+    const opts = document.getElementById(`${Q.id}-opts`);
+    const fb = document.getElementById(`${Q.id}-fb`);
+    opts.innerHTML = "";
+    Q.choices.forEach((c, i) => {
+      const o = document.createElement("div");
+      o.className = "quiz-option";
+      o.textContent = `${String.fromCharCode(65+i)}) ${c}`;
+      o.onclick = () => {
+        const all = opts.querySelectorAll(".quiz-option");
+        if (all[0].classList.contains("disabled")) return;
+        all.forEach(x => x.classList.add("disabled"));
+        all[Q.ans].classList.add("correct");
+        if (i !== Q.ans) o.classList.add("wrong");
+        fb.classList.add("show");
+        ptDone++;
+        if (i === Q.ans) {
+          ptScore++;
+          fb.classList.remove("bad");
+          fb.classList.add("good");
+          fb.innerHTML = `✓ Correct! ${Q.why}`;
+        } else {
+          fb.classList.remove("good");
+          fb.classList.add("bad");
+          fb.innerHTML = `✗ Correct answer: ${String.fromCharCode(65+Q.ans)}. ${Q.why}`;
+        }
+        updatePTScore();
+      };
+      opts.appendChild(o);
+    });
+  });
+}
+
+const practiceTestNumeric = [
+  "pt9c","pt10b","pt11a","pt11b","pt12c","pt13b",
+  "pt15","pt16","pt17","pt18","pt19","pt20",
+  "pt21a","pt21b","pt22a","pt22b","pt22c"
+];
+const ptNumericChecked = {};
+
+function checkPT(id, correct) {
+  const inp = document.getElementById(`${id}-input`);
+  const fb = document.getElementById(`${id}-fb`);
+  const val = parseFloat(inp.value);
+  if (isNaN(val)) {
+    fb.textContent = " ⓘ Enter a number first";
+    fb.style.color = "var(--muted)";
+    return;
+  }
+  const wasChecked = ptNumericChecked[id];
+  const ok = Math.abs(val - correct) < 0.05;
+  if (!wasChecked) ptDone++;
+  if (ok) {
+    if (!wasChecked) ptScore++;
+    else if (ptNumericChecked[id] === "wrong") ptScore++;
+    fb.textContent = " ✓ Correct!";
+    fb.style.color = "var(--good)";
+    ptNumericChecked[id] = "right";
+  } else {
+    if (wasChecked === "right") ptScore--;
+    fb.textContent = ` ✗ Not quite — try again`;
+    fb.style.color = "var(--bad)";
+    ptNumericChecked[id] = "wrong";
+  }
+  updatePTScore();
+}
+
+function updatePTScore() {
+  ptTotal = practiceTestMC.length + practiceTestNumeric.length;
+  document.getElementById("pt-score").textContent =
+    `Score: ${ptScore} / ${ptDone} answered (out of ${ptTotal} questions)`;
+  document.getElementById("pt-fill").style.width = `${(ptScore / ptTotal) * 100}%`;
+}
+
+function resetPracticeTest() {
+  ptScore = 0; ptDone = 0;
+  Object.keys(ptNumericChecked).forEach(k => delete ptNumericChecked[k]);
+  setupPracticeMC();
+  practiceTestNumeric.forEach(id => {
+    const inp = document.getElementById(`${id}-input`);
+    const fb = document.getElementById(`${id}-fb`);
+    if (inp) inp.value = "";
+    if (fb) fb.textContent = "";
+  });
+  document.querySelectorAll("#practice-test details").forEach(d => d.open = false);
+  updatePTScore();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+setupPracticeMC();
+updatePTScore();
+
+/* ============== BIG QUIZ ============== */
+const quizQs = [
+  {q: "How many types of simple machines are there?", a: ["4", "5", "6", "7"], ans: 2},
+  {q: "In a Class 1 lever, what is in the middle?", a: ["Effort", "Load", "Fulcrum", "Spring"], ans: 2},
+  {q: "In a Class 2 lever, what is in the middle?", a: ["Effort", "Load", "Fulcrum", "Axle"], ans: 1},
+  {q: "In a Class 3 lever, what is in the middle?", a: ["Effort", "Load", "Fulcrum", "Rope"], ans: 0},
+  {q: "What is the IMA of a fixed pulley?", a: ["0", "1", "2", "Infinite"], ans: 1},
+  {q: "What is the IMA of a single movable pulley?", a: ["0", "1", "2", "3"], ans: 2},
+  {q: "Which simple machine is a flat slanted surface?", a: ["Wedge", "Inclined plane", "Lever", "Screw"], ans: 1},
+  {q: "Which simple machine is an inclined plane wrapped around a cylinder?", a: ["Wedge", "Pulley", "Screw", "Wheel and axle"], ans: 2},
+  {q: "What's the formula for IMA of an inclined plane?", a: ["height ÷ length", "length ÷ height", "length × height", "weight × height"], ans: 1},
+  {q: "What's the formula for IMA of a lever?", a: ["effort arm ÷ load arm", "load arm ÷ effort arm", "load × effort", "fulcrum × distance"], ans: 0},
+  {q: "What's the formula for IMA of a wheel and axle?", a: ["axle ÷ wheel", "wheel × axle", "wheel radius ÷ axle radius", "circumference ÷ pitch"], ans: 2},
+  {q: "What's the formula for IMA of a wedge?", a: ["length ÷ width", "width ÷ length", "length × width", "2π × width"], ans: 0},
+  {q: "Why is AMA always LESS than IMA in real life?", a: ["Because of friction", "Because of magnets", "Because of gravity", "Because the load is heavy"], ans: 0},
+  {q: "Efficiency = (AMA ÷ IMA) × ___?", a: ["10", "50", "100%", "1"], ans: 2},
+  {q: "Newton's 1st Law is also called the law of...", a: ["Action-reaction", "Gravity", "Inertia", "Energy"], ans: 2},
+  {q: "Newton's 2nd Law says F = m × ?", a: ["distance", "velocity", "acceleration", "weight"], ans: 2},
+  {q: "Newton's 3rd Law says forces come in ___ pairs.", a: ["double", "equal and opposite", "fast and slow", "magnetic"], ans: 1},
+  {q: "A book sits still on a table. Gravity pulls down. What pushes up?", a: ["Friction", "Tension", "Normal force", "Applied force"], ans: 2},
+  {q: "If two forces of 5N right and 3N left act on an object, the net force is...", a: ["8N right", "2N right", "2N left", "Zero"], ans: 1},
+  {q: "If the net force on an object is zero, the object...", a: ["Always stops", "Speeds up", "Stays still OR moves at steady speed", "Spins"], ans: 2},
+  {q: "Energy lost to friction usually becomes...", a: ["Light", "Sound only", "Heat", "Electricity"], ans: 2},
+  {q: "Stairs are an example of a...", a: ["Series of inclined planes", "Set of levers", "Series of pulleys", "Wedges"], ans: 0},
+  {q: "A knife is best described as a...", a: ["Lever", "Wedge", "Screw", "Pulley"], ans: 1},
+  {q: "Scissors combine which two simple machines?", a: ["Pulley + lever", "Lever + wedge", "Screw + wedge", "Wheel + axle"], ans: 1},
+  {q: "Pulling DOWN on a fixed pulley rope makes the load go...", a: ["Down", "Up", "Sideways", "Nowhere"], ans: 1},
+  {q: "A long, thin wedge has ___ IMA than a short, thick wedge.", a: ["Lower", "Same", "Higher", "Zero"], ans: 2},
+  {q: "Which lever class ALWAYS has IMA greater than 1?", a: ["Class 1", "Class 2", "Class 3", "None"], ans: 1},
+  {q: "Which lever class ALWAYS has IMA less than 1?", a: ["Class 1", "Class 2", "Class 3", "None"], ans: 2},
+  {q: "For a balanced lever: Left ___ × Left distance = Right ___ × Right distance.", a: ["weight, weight", "color, color", "length, length", "time, time"], ans: 0},
+  {q: "Which is NOT a simple machine?", a: ["Lever", "Spring", "Pulley", "Wedge"], ans: 1}
+];
+let qIndex = 0, qScore = 0, qDone = 0;
+function renderQuiz() {
+  const list = document.getElementById("quiz-list");
+  list.innerHTML = "";
+  quizQs.forEach((Q, idx) => {
+    const div = document.createElement("div");
+    div.className = "quiz-q";
+    div.innerHTML = `<p><strong>${idx+1}.</strong> ${Q.q}</p><div class="quiz-options" id="qopts-${idx}"></div><div id="qfb-${idx}" class="quiz-feedback"></div>`;
+    list.appendChild(div);
+    const opts = div.querySelector(`#qopts-${idx}`);
+    Q.a.forEach((c, i) => {
+      const o = document.createElement("div");
+      o.className = "quiz-option";
+      o.textContent = c;
+      o.onclick = () => answerBig(idx, i, o);
+      opts.appendChild(o);
+    });
+  });
+  updateQuizScore();
+}
+function answerBig(qi, i, el) {
+  const Q = quizQs[qi];
+  const opts = document.querySelectorAll(`#qopts-${qi} .quiz-option`);
+  if (opts[0].classList.contains("disabled")) return;
+  opts.forEach(o => o.classList.add("disabled"));
+  opts[Q.ans].classList.add("correct");
+  const fb = document.getElementById(`qfb-${qi}`);
+  fb.classList.add("show");
+  qDone++;
+  if (i === Q.ans) {
+    qScore++;
+    fb.classList.add("good");
+    fb.textContent = "✓ Correct!";
+  } else {
+    el.classList.add("wrong");
+    fb.classList.add("bad");
+    fb.textContent = `✗ The correct answer is: ${Q.a[Q.ans]}`;
+  }
+  updateQuizScore();
+}
+function updateQuizScore() {
+  document.getElementById("quiz-score").textContent = `Score: ${qScore} / ${qDone} (out of ${quizQs.length})`;
+  document.getElementById("quiz-fill").style.width = `${(qScore / quizQs.length) * 100}%`;
+}
+function resetQuiz() {
+  qScore = 0; qDone = 0;
+  renderQuiz();
+}
+renderQuiz();
+
+/* ============== LEVER LAB ============== */
+function drawLever() {
+  const lw = +document.getElementById("leftW").value;
+  const ld = +document.getElementById("leftD").value;
+  const rw = +document.getElementById("rightW").value;
+  const rd = +document.getElementById("rightD").value;
+  document.getElementById("leftWv").textContent = lw;
+  document.getElementById("leftDv").textContent = ld;
+  document.getElementById("rightWv").textContent = rw;
+  document.getElementById("rightDv").textContent = rd;
+  const leftTorque = lw * ld;
+  const rightTorque = rw * rd;
+  const diff = rightTorque - leftTorque;
+  let angle = Math.max(-18, Math.min(18, diff * 0.6));
+  const svg = document.getElementById("leverSvg");
+  const cx = 300, cy = 130;
+  const halfLen = 240;
+  const rad = angle * Math.PI / 180;
+  const dx = halfLen * Math.cos(rad);
+  const dy = halfLen * Math.sin(rad);
+  const lr = 6 + lw * 1.2;
+  const rr = 6 + rw * 1.2;
+  const scale = halfLen / 10;
+  const lx = cx - ld * scale * Math.cos(rad);
+  const ly = cy - ld * scale * Math.sin(rad);
+  const rx = cx + rd * scale * Math.cos(rad);
+  const ry = cy + rd * scale * Math.sin(rad);
+  svg.innerHTML = `
+    <line x1="${cx-dx}" y1="${cy-dy}" x2="${cx+dx}" y2="${cy+dy}" stroke="#1e293b" stroke-width="6"/>
+    <polygon points="${cx-12},150 ${cx+12},150 ${cx},200" fill="#7c3aed"/>
+    <rect x="${cx-25}" y="200" width="50" height="10" fill="#475569"/>
+    <circle cx="${lx}" cy="${ly - lr}" r="${lr}" fill="#16a34a" stroke="#065f46" stroke-width="2"/>
+    <text x="${lx}" y="${ly - lr + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="white">${lw}</text>
+    <circle cx="${rx}" cy="${ry - rr}" r="${rr}" fill="#dc2626" stroke="#7f1d1d" stroke-width="2"/>
+    <text x="${rx}" y="${ry - rr + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="white">${rw}</text>
+    <text x="20" y="30" font-size="14" font-weight="700" fill="#16a34a">Left: ${lw} × ${ld} = ${leftTorque}</text>
+    <text x="420" y="30" font-size="14" font-weight="700" fill="#dc2626">Right: ${rw} × ${rd} = ${rightTorque}</text>
+  `;
+  const status = document.getElementById("leverStatus");
+  if (leftTorque === rightTorque) {
+    status.textContent = "⚖ BALANCED! Both sides equal.";
+    status.className = "balance-status balanced";
+  } else if (leftTorque > rightTorque) {
+    status.textContent = `← Left side is heavier by ${leftTorque - rightTorque}. Left side tips DOWN.`;
+    status.className = "balance-status tilted";
+  } else {
+    status.textContent = `Right side is heavier by ${rightTorque - leftTorque}. Right side tips DOWN. →`;
+    status.className = "balance-status tilted";
+  }
+}
+drawLever();
+</script>
+</body>
+</html>
